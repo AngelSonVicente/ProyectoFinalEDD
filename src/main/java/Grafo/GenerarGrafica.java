@@ -4,43 +4,77 @@
  */
 package Grafo;
 
+import Model.Arista;
+import Model.Nodo;
+import guru.nidi.graphviz.engine.Format;
+import guru.nidi.graphviz.engine.Graphviz;
+import guru.nidi.graphviz.model.MutableGraph;
+import guru.nidi.graphviz.parse.Parser;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author angel
  */
 public class GenerarGrafica {
-    
-    
-    
-    
-    
-    
-    
-      public String generarDOT(List<Nodo> nodos, List<Arista> aristas) {
-        StringBuilder dot = new StringBuilder();
 
+    public String graficar(List<Nodo> nodos, List<Arista> aristas) {
+        return generarGrafico(generarDOT(nodos, aristas))+"/mapa.png";
+
+    }
+
+    public String generarDOT(List<Nodo> nodos, List<Arista> aristas) {
+    StringBuilder dot = new StringBuilder();
+        
         dot.append("digraph Mapa {\n");
-
+        
         // Agregar nodos al DOT
         for (Nodo nodo : nodos) {
             dot.append("    ").append(nodo.getId()).append(" [label=\"").append(nodo.getNombre()).append("\"];\n");
         }
-
-        // Agregar aristas al DOT
+        
+        // Agregar aristas al DOT con distancias
         for (Arista arista : aristas) {
             int inicioId = arista.getInicio().getId();
             int finId = arista.getFin().getId();
+            int distancia = arista.getDistancia(); // Calcular la distancia (puedes tener un método para ello)
             String tipo = arista.isDobleVia() ? "dir=\"both\"" : "dir=\"forward\"";
+            
+            dot.append("    ").append(inicioId).append(" -> ").append(finId)
+               .append(" [").append(tipo).append(", label=\"").append(distancia).append("\"];\n");
+        }
+        
+        dot.append("}");
+        
+        return dot.toString();
 
-            dot.append("    ").append(inicioId).append(" -> ").append(finId).append(" [").append(tipo).append("];\n");
+    }
+
+    public String generarGrafico(String contenidoDot) {
+        String Path = System.getProperty("user.dir");
+
+        System.out.println("Path del generar Grafico: "+Path);
+        String dotFileName = "mapa";
+
+        File dotFile = new File(dotFileName);
+        try {
+            java.nio.file.Files.write(dotFile.toPath(), contenidoDot.getBytes());
+
+            System.out.println("Archivo DOT generado con éxito: " + dotFileName);
+
+            MutableGraph g = new Parser().read(dotFile);
+            Graphviz.fromGraph(g).height(600).width(600).render(Format.PNG).toFile(new File(Path+"/"+"mapa"));
+            System.out.println("Imagen generada con éxito: automata.png");
+
+        } catch (IOException ex) {
+            Logger.getLogger(GenerarGrafica.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        dot.append("}");
-
-        return dot.toString();
+        return Path;
     }
-    
-    
+
 }

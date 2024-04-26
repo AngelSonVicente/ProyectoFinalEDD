@@ -4,7 +4,7 @@
 package com.mycompany.proyectofinaledd;
 
 import Grafo.Grafo;
-import Grafo.Nodo;
+import Model.Nodo;
 import Ventanas.Principal;
 
 /**
@@ -46,6 +46,7 @@ public class ProyectoFinalEDD {
         */
         
 
+        
         Principal principal = new Principal();
         
         principal.setVisible(true);

@@ -1,0 +1,25 @@
+digraph Mapa {
+    1 [label="Nodo1"];
+    2 [label="Nodo2"];
+    3 [label="Nodo3"];
+    4 [label="Nodo4"];
+    5 [label="Nodo6"];
+    6 [label="Nodo5"];
+    7 [label="Nodo7"];
+    1 -> 2 [dir="forward", label="12"];
+    2 -> 1 [dir="forward", label="23"];
+    2 -> 3 [dir="forward", label="22"];
+    4 -> 3 [dir="forward", label="10"];
+    4 -> 5 [dir="forward", label="25"];
+    5 -> 4 [dir="forward", label="30"];
+    6 -> 5 [dir="forward", label="33"];
+    7 -> 5 [dir="forward", label="39"];
+    1 -> 7 [dir="forward", label="47"];
+    7 -> 1 [dir="forward", label="46"];
+    3 -> 7 [dir="forward", label="53"];
+    3 -> 6 [dir="forward", label="56"];
+    6 -> 3 [dir="forward", label="6"];
+    4 -> 6 [dir="forward", label="69"];
+    6 -> 4 [dir="forward", label="75"];
+    7 -> 6 [dir="forward", label="77"];
+}

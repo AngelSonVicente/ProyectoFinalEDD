@@ -6,8 +6,11 @@ package Ventanas;
 
 import Grafo.GenerarGrafica;
 import Grafo.Grafo;
+import Model.Camino;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -38,6 +41,7 @@ public class Principal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        graficaMapa = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         Importar = new javax.swing.JMenuItem();
@@ -74,11 +78,17 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1004, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(361, Short.MAX_VALUE)
+                .addComponent(graficaMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 655, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(graficaMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -136,9 +146,34 @@ public class Principal extends javax.swing.JFrame {
         GenerarGrafica grafica = new GenerarGrafica();
         
        
+        
+        String Path = grafica.graficar(mapa.getNodos(), mapa.getAristas());
+        
+            System.out.println(Path);
+            ImageIcon imageIcon = new ImageIcon(Path); // Reemplaza con la ruta de tu imagen
+        graficaMapa.setIcon(imageIcon);
+  
+        
         System.out.println(grafica.generarDOT(mapa.getNodos(), mapa.getAristas()));
         
 
+        
+            System.out.println("\n\n DE: "+ mapa.getNodos().get(1).toString() + " A "+ mapa.getNodos().get(4));
+      List<Camino> caminosEncontrados=  mapa.encontrarCaminos(mapa.getNodos().get(1), mapa.getNodos().get(4));        
+        
+            System.out.println("\n\nCAMINOS");
+            System.out.println("---------------------------------------------------------\n");
+            
+            
+      
+      for(Camino camino: caminosEncontrados){
+          
+          System.out.println(camino.getNodos().toString()+"  Distancias: " + camino.getDistanciaTotal());
+          
+      
+      }
+      
+        
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -181,6 +216,7 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Importar;
+    private javax.swing.JLabel graficaMapa;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

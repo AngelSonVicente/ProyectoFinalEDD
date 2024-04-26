@@ -4,6 +4,9 @@
  */
 package Grafo;
 
+import Model.Arista;
+import Model.Camino;
+import Model.Nodo;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +40,13 @@ public class Grafo {
     // Métodos para añadir nodos y aristas
     public void addNodo(Nodo nodo) {
         nodos.add(nodo);
+    }
+    
+    public List<Camino> encontrarCaminos(Nodo nodoOrigen, Nodo nodoDestino){
+    BuscarCaminos buscarCaminos = new BuscarCaminos(aristas,nodos);
+        
+        
+        return buscarCaminos.encontrarCaminos(nodoOrigen, nodoDestino);
     }
 
     public void addArista(Nodo inicio, Nodo fin, int tiempoVehiculo, int tiempoPie, int consumoGas, int desgastePersona, int distancia, boolean dobleVia) {
