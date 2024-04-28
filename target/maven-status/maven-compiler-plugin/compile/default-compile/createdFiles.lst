@@ -1,10 +1,14 @@
 Grafo/GenerarGrafica.class
 Model/Camino.class
+Ventanas/Principal$3.class
+com/mycompany/proyectofinaledd/ProyectoFinalEDD.class
+Ventanas/Principal$2.class
+Util/Util.class
 Model/Arista.class
 Ventanas/Principal$1.class
+Ventanas/Principal$5.class
 Grafo/Grafo.class
 Model/Nodo.class
-com/mycompany/proyectofinaledd/ProyectoFinalEDD.class
+Ventanas/Principal$4.class
 Grafo/BuscarCaminos.class
 Ventanas/Principal.class
-Ventanas/Principal$2.class

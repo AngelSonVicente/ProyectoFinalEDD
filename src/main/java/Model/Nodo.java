@@ -40,7 +40,7 @@ public class Nodo {
 
     @Override
     public String toString() {
-        return "Nodo{" + "id=" + id + ", nombre=" + nombre + '}';
+        return nombre;
     }
     
     

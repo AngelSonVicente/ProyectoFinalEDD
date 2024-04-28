@@ -29,26 +29,28 @@ public class BuscarCaminos {
     
       public List<Camino> encontrarCaminos(Nodo origen, Nodo destino) {
         List<Camino> caminos = new ArrayList<>();
-        encontrarCaminosRecursivo(origen, destino, new ArrayList<>(), 0, caminos);
+        encontrarCaminosRecursivo(origen, destino, new ArrayList<>(),0, 0, caminos);
         return caminos;
     }
 
-    private void encontrarCaminosRecursivo(Nodo actual, Nodo destino, List<Nodo> caminoActual, int distanciaActual, List<Camino> caminos) {
+    private void encontrarCaminosRecursivo(Nodo actual, Nodo destino, List<Nodo> caminoActual, int Gasolina, int distanciaActual, List<Camino> caminos) {
         caminoActual.add(actual);
 
         if (actual.equals(destino)) {
             Camino camino = new Camino();
             camino.getNodos().addAll(caminoActual);
             camino.addDistancia(distanciaActual);
+            camino.addConsumoGasolina(Gasolina);
             caminos.add(camino);
         } else {
             for (Arista arista : aristas) {
                 if (arista.getInicio().equals(actual)) {
                     Nodo siguiente = arista.getFin();
                     int distanciaArista = arista.getDistancia();
+                    int consumoGasArista = arista.getConsumoGas();
 
                     if (!caminoActual.contains(siguiente)) {
-                        encontrarCaminosRecursivo(siguiente, destino, caminoActual, distanciaActual + distanciaArista, caminos);
+                        encontrarCaminosRecursivo(siguiente, destino, caminoActual,Gasolina+consumoGasArista ,distanciaActual + distanciaArista, caminos);
                     }
                 }
             }

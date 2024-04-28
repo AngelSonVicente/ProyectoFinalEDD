@@ -15,6 +15,7 @@ public class Camino {
    
     private List<Nodo> nodos;
     private int distanciaTotal;
+    private int gasolinaTotal;
 
     
 
@@ -31,6 +32,9 @@ public class Camino {
     public void addDistancia(int distancia) {
         distanciaTotal += distancia;
     }
+    public void addConsumoGasolina(int gasolina) {
+        gasolinaTotal += gasolina;
+    }
 
     public List<Nodo> getNodos() {
         return nodos;
@@ -46,6 +50,20 @@ public class Camino {
 
     public void setDistanciaTotal(int distanciaTotal) {
         this.distanciaTotal = distanciaTotal;
+    }
+
+    public int getGasolinaTotal() {
+        return gasolinaTotal;
+    }
+
+    public void setGasolinaTotal(int gasolinaTotal) {
+        this.gasolinaTotal = gasolinaTotal;
+    }
+    
+    
+    public float getPromDistanciaGasolina(){
+    
+    return (gasolinaTotal+distanciaTotal)/2;
     }
 
     @Override

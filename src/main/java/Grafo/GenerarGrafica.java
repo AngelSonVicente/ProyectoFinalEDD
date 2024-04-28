@@ -26,7 +26,78 @@ public class GenerarGrafica {
         return generarGrafico(generarDOT(nodos, aristas))+"/mapa.png";
 
     }
+    
+    
+    
+    
+      public String generarDOTRecorrido(List<Nodo> nodos, List<Arista> aristas,List<Nodo> recorrido, Nodo inicio, Nodo Final, Nodo actual) {
+        
+          String colorRecorrido="blue\"";
+          StringBuilder dot = new StringBuilder();
+        
+    dot.append("digraph Mapa {\n");
+    
+    // Agregar nodos al DOT con características especiales
+      for (Nodo nodo : nodos) {
+    
+          
+           
+            String color="black\"";
+            if(recorrido.contains(nodo)){
+                color=colorRecorrido;
+                
+                if(nodo.equals(inicio)){
+                    color+=" , shape=Mcircle";
+                
+                }
+                
+                
+                if(nodo.equals(Final)){
+                    
+                    color+="shape=doublecircle, style=filled, fillcolor=yellow";
+                
+                }
+                
+                if(nodo.equals(actual)){
+                    if(!actual.equals(inicio)){
+                    
+                    color+="shape=diamond";
+                    }
+                    
+                
+                }
+            
+            }
+            
+            
+            dot.append("    ").append(nodo.getId()).append(" [label=\"").append(nodo.getNombre()).append("\", color=\"").append(color).append("];\n");
+       
+      
+      }
 
+      
+    
+    // Agregar aristas al DOT con color y distancia
+    for (Arista arista : aristas) {
+        int inicioId = arista.getInicio().getId();
+        int finId = arista.getFin().getId();
+        int distancia = arista.getDistancia(); // Calcular la distancia (puedes tener un método para ello)
+        String tipo = arista.isDobleVia() ? "dir=\"both\"" : "dir=\"forward\"";
+        String color = recorrido.contains(arista.getInicio()) && recorrido.contains(arista.getFin()) ? colorRecorrido : "black\""; // Color del recorrido o negro
+        
+        dot.append("    ").append(inicioId).append(" -> ").append(finId)
+           .append(" [").append(tipo).append(", color=\"").append(color).append(", label=\"").append(distancia).append("\"];\n");
+    }
+    
+    dot.append("}");
+    
+    return dot.toString();
+    }
+    
+    
+    
+    
+    
     public String generarDOT(List<Nodo> nodos, List<Arista> aristas) {
     StringBuilder dot = new StringBuilder();
         

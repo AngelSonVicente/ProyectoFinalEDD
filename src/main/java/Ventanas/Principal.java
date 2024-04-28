@@ -7,12 +7,19 @@ package Ventanas;
 import Grafo.GenerarGrafica;
 import Grafo.Grafo;
 import Model.Camino;
+import Model.Nodo;
+import Util.Util;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.List;
+import javax.swing.ComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
+import javax.swing.event.ListDataListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -41,7 +48,23 @@ public class Principal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        popupMenu1 = new java.awt.PopupMenu();
+        popupMenu2 = new java.awt.PopupMenu();
+        popupMenu3 = new java.awt.PopupMenu();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jPopupMenu2 = new javax.swing.JPopupMenu();
+        jPopupMenu3 = new javax.swing.JPopupMenu();
+        jPopupMenu4 = new javax.swing.JPopupMenu();
         graficaMapa = new javax.swing.JLabel();
+        inicio = new javax.swing.JComboBox<>();
+        fin = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        funcionalidad = new javax.swing.JComboBox<>();
+        tipoMovilidad = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        resultadoCamino = new javax.swing.JTextPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         Importar = new javax.swing.JMenuItem();
@@ -55,7 +78,40 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuItem2.setText("jMenuItem2");
 
+        popupMenu1.setLabel("popupMenu1");
+
+        popupMenu2.setLabel("popupMenu2");
+
+        popupMenu3.setLabel("popupMenu3");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jButton1.setText("Buscar Caminos");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Nodo Incial");
+
+        jLabel2.setText("Nodo Destino");
+
+        funcionalidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                funcionalidadActionPerformed(evt);
+            }
+        });
+
+        tipoMovilidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo de Movilidad", "Vehiculo", "a pie" }));
+        tipoMovilidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipoMovilidadActionPerformed(evt);
+            }
+        });
+
+        resultadoCamino.setEditable(false);
+        jScrollPane1.setViewportView(resultadoCamino);
 
         jMenu3.setText("File");
 
@@ -79,20 +135,50 @@ public class Principal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(361, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(inicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jButton1)
+                    .addComponent(funcionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tipoMovilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
                 .addComponent(graficaMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(graficaMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(graficaMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(inicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55)
+                        .addComponent(tipoMovilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(funcionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
 
     private void ImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportarActionPerformed
         JFrame ventana = new JFrame("Selector de Archivos");
@@ -114,16 +200,250 @@ public class Principal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_ImportarActionPerformed
 
+    private Util util = new Util();
     
-            Grafo mapa = new Grafo();
+    private void tipoMovilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoMovilidadActionPerformed
+
+            funcionalidad.removeAllItems();
+        if (tipoMovilidad.getSelectedIndex()==1) {
+
+
+            funcionalidad.addItem("Seleccione la funcionalidad");
+            funcionalidad.addItem("Mejor ruta en base a la gasolina");
+            funcionalidad.addItem("Mejor ruta en base a la distancia");
+            funcionalidad.addItem("Mejor ruta en base a la gasolina y la distancia");
+            funcionalidad.addItem("Ruta más rápida en base a la distancia, tiempo y probabilidad de tráfico");
+
+        }
+
+        if (tipoMovilidad.getSelectedIndex()==2) {
+
+
+            
+            funcionalidad.addItem("Seleccione la funcionalidad");
+            funcionalidad.addItem("Mejor ruta en base al desgaste físico");
+            funcionalidad.addItem("Mejor ruta en base al desgaste físico y la distancia");
+            funcionalidad.addItem("Mejor ruta en base a la distancia");
+
+        }
+
+
+    }//GEN-LAST:event_tipoMovilidadActionPerformed
+
+    private void funcionalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_funcionalidadActionPerformed
+        
+        String resultado="";
+      
+        
+    
+
+        
+            Nodo nodoIncioSeleccionado = (Nodo) inicio.getSelectedItem();
+
+            Nodo nodoFinSeleccionado = (Nodo) fin.getSelectedItem();
+
+            System.out.println("\n\n DE: " + nodoIncioSeleccionado.toString() + " A " + nodoFinSeleccionado.toString());
+            List<Camino> caminosEncontrados = mapa.encontrarCaminos(nodoIncioSeleccionado, nodoFinSeleccionado);
+
+            System.out.println("\n\nCAMINOS");
+            System.out.println("---------------------------------------------------------\n");
+
+            for (Camino camino : caminosEncontrados) {
+
+                System.out.println(camino.getNodos().toString() + "  Distancias: " + camino.getDistanciaTotal() + " Gasolina: " + camino.getGasolinaTotal() + " Promedio Gasolina y Distancia: " + camino.getPromDistanciaGasolina());
+
+            }
+            
+            
+            
+            
+
+            
+        
+
+        
+        
+        
+        if(tipoMovilidad.getSelectedIndex()==1 && funcionalidad.getSelectedIndex() == 1){
+            
+            System.out.println("Mejor rita en base a la gas");
+            
+            resultado="Mejor Ruta: \n";
+            
+            Camino mejorCamino = util.getMejorCaminoGasolina(caminosEncontrados);
+            
+            
+            System.out.println(grafica.generarDOTRecorrido(mapa.getNodos(), mapa.getAristas(), mejorCamino.getNodos(), nodoIncioSeleccionado, nodoFinSeleccionado, mapa.getNodos().get(6)));
+            
+            resultado+=" Recorrido: ";
+            for(Nodo nodo : mejorCamino.getNodos()){
+            
+            resultado+=nodo.getNombre()+"->";
+            }
+            
+            resultado=resultado.substring(0, resultado.length()-2);
+            
+            resultado+="\nGasolina Total: "+mejorCamino.getGasolinaTotal();
+            
+            
+            
+            resultado+="\n\n Peor Ruta: ";
+            
+            
+            Camino peorCamino=util.getPeorCaminoGasolina(caminosEncontrados);
+            
+            
+            resultado+=" \nRecorrido: ";
+            for(Nodo nodo : peorCamino.getNodos()){
+            
+            resultado+=nodo.getNombre()+"->";
+            }
+            
+            resultado=resultado.substring(0, resultado.length()-2);
+            
+            resultado+="\nGasolina Total: "+peorCamino.getGasolinaTotal();
+            
+            
+            
+            
+            
+            
+        
+        }
+        if(tipoMovilidad.getSelectedIndex()==1 && funcionalidad.getSelectedIndex() == 2){
+            
+            System.out.println("Mejor rita en base a la Distancia");
+            
+        
+            resultado="Mejor Ruta: \n";
+            
+            Camino mejorCamino = util.getMejorCaminoDistancia(caminosEncontrados);
+            
+            resultado+=" Recorrido: ";
+            for(Nodo nodo : mejorCamino.getNodos()){
+            
+            resultado+=nodo.getNombre()+"->";
+            }
+            
+            resultado=resultado.substring(0, resultado.length()-2);
+            
+            resultado+="\nDistancia Total: "+mejorCamino.getDistanciaTotal();
+            
+            
+            
+            resultado+="\n\n Peor Ruta: ";
+            
+            
+            Camino peorCamino=util.getPeorCaminoDistancia(caminosEncontrados);
+            
+            
+            resultado+=" \nRecorrido: ";
+            for(Nodo nodo : peorCamino.getNodos()){
+            
+            resultado+=nodo.getNombre()+"->";
+            }
+            
+            resultado=resultado.substring(0, resultado.length()-2);
+            
+            resultado+="\nDistancia Total: "+peorCamino.getDistanciaTotal();
+            
+            
+            
+            
+          
+            
+            
+            
+        
+        }
+        if(tipoMovilidad.getSelectedIndex()==1 && funcionalidad.getSelectedIndex() == 3){
+            System.out.println("Mejor rita en base a la gas y distancia");
+        
+        
+            
+            resultado="Mejor Ruta: \n";
+            
+            Camino mejorCamino = util.getMejorCaminoGasolinaDistancia(caminosEncontrados);
+            
+            resultado+=" Recorrido: ";
+            for(Nodo nodo : mejorCamino.getNodos()){
+            
+            resultado+=nodo.getNombre()+"->";
+            }
+            
+            resultado=resultado.substring(0, resultado.length()-2);
+            
+            resultado+="\nPromedio Gasolina y Distancia  Total: "+mejorCamino.getPromDistanciaGasolina();
+            
+            
+            
+            resultado+="\n\n Peor Ruta: ";
+            
+            
+            Camino peorCamino=util.getPeorCaminoGasolinaDistancia(caminosEncontrados);
+            
+            
+            resultado+=" \nRecorrido: ";
+            for(Nodo nodo : peorCamino.getNodos()){
+            
+            resultado+=nodo.getNombre()+"->";
+            }
+            
+            resultado=resultado.substring(0, resultado.length()-2);
+            
+            resultado+="\nPromedio Gasolina Y Distancia Total: "+peorCamino.getPromDistanciaGasolina();
+            
+            
+            
+            
+           
+            
+        
+        
+        
+        }
+        
+        if(tipoMovilidad.getSelectedIndex()==1 && funcionalidad.getSelectedIndex() == 4){
+            System.out.println("Ruta mas rapido  en base a la distancia tiempo y trafico");
+        }
+        
+        resultadoCamino.setText(resultado);
+            
+        
+        
+    }//GEN-LAST:event_funcionalidadActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        if (mapa != null) {
+
+            Nodo nodoIncioSeleccionado = (Nodo) inicio.getSelectedItem();
+
+            Nodo nodoFinSeleccionado = (Nodo) fin.getSelectedItem();
+
+            System.out.println("\n\n DE: " + nodoIncioSeleccionado.toString() + " A " + nodoFinSeleccionado.toString());
+            List<Camino> caminosEncontrados = mapa.encontrarCaminos(nodoIncioSeleccionado, nodoFinSeleccionado);
+
+            System.out.println("\n\nCAMINOS");
+            System.out.println("---------------------------------------------------------\n");
+
+            for (Camino camino : caminosEncontrados) {
+
+                System.out.println(camino.getNodos().toString() + "  Distancias: " + camino.getDistanciaTotal() + " Gasolina: " + camino.getGasolinaTotal() + " Promedio Gasolina y Distancia: " + camino.getPromDistanciaGasolina());
+
+            }
+
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    Grafo mapa = new Grafo();
+ GenerarGrafica grafica = new GenerarGrafica();
 
     private void mostrarContenidoArchivo(String rutaArchivo) {
-       
 
         mapa.borrarDatos();
 
-        
-        
         try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
             String linea;
             String datos = "";
@@ -134,46 +454,28 @@ public class Principal extends javax.swing.JFrame {
             }
 
             mapa.cargarDatos(datos);
-            
-                 System.out.println(mapa.toString());
-        
-        
-        System.out.println("\n-------------------------------------------------------------------------------------\n");
-        
-        System.out.println("Grafica: ");
-        
-        
-        GenerarGrafica grafica = new GenerarGrafica();
-        
-       
-        
-        String Path = grafica.graficar(mapa.getNodos(), mapa.getAristas());
-        
+
+            System.out.println(mapa.toString());
+
+            System.out.println("\n-------------------------------------------------------------------------------------\n");
+
+            System.out.println("Grafica: ");
+
+           
+            String Path = grafica.graficar(mapa.getNodos(), mapa.getAristas());
+
             System.out.println(Path);
             ImageIcon imageIcon = new ImageIcon(Path); // Reemplaza con la ruta de tu imagen
-        graficaMapa.setIcon(imageIcon);
-  
-        
-        System.out.println(grafica.generarDOT(mapa.getNodos(), mapa.getAristas()));
-        
+            graficaMapa.setIcon(imageIcon);
 
-        
-            System.out.println("\n\n DE: "+ mapa.getNodos().get(1).toString() + " A "+ mapa.getNodos().get(4));
-      List<Camino> caminosEncontrados=  mapa.encontrarCaminos(mapa.getNodos().get(1), mapa.getNodos().get(4));        
-        
-            System.out.println("\n\nCAMINOS");
-            System.out.println("---------------------------------------------------------\n");
-            
-            
-      
-      for(Camino camino: caminosEncontrados){
-          
-          System.out.println(camino.getNodos().toString()+"  Distancias: " + camino.getDistanciaTotal());
-          
-      
-      }
-      
-        
+            System.out.println(grafica.generarDOT(mapa.getNodos(), mapa.getAristas()));
+
+            for (Nodo nodo : mapa.getNodos()) {
+                inicio.addItem(nodo); // Asumiendo que hay un método getNombre en la clase Nodo
+                fin.addItem(nodo); // Asumiendo que hay un método getNombre en la clase Nodo
+
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -216,7 +518,13 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Importar;
+    private javax.swing.JComboBox<Nodo> fin;
+    private javax.swing.JComboBox<String> funcionalidad;
     private javax.swing.JLabel graficaMapa;
+    private javax.swing.JComboBox<Nodo> inicio;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -224,5 +532,15 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JPopupMenu jPopupMenu2;
+    private javax.swing.JPopupMenu jPopupMenu3;
+    private javax.swing.JPopupMenu jPopupMenu4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private java.awt.PopupMenu popupMenu1;
+    private java.awt.PopupMenu popupMenu2;
+    private java.awt.PopupMenu popupMenu3;
+    private javax.swing.JTextPane resultadoCamino;
+    private javax.swing.JComboBox<String> tipoMovilidad;
     // End of variables declaration//GEN-END:variables
 }
