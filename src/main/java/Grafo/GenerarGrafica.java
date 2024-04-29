@@ -23,16 +23,26 @@ import java.util.logging.Logger;
 public class GenerarGrafica {
 
     public String graficar(List<Nodo> nodos, List<Arista> aristas) {
-        return generarGrafico(generarDOT(nodos, aristas))+"/mapa.png";
+        return generarGrafico(generarDOT(nodos, aristas),"mapa")+"/mapa.png";
+
+    }
+    public String graficarCamino(List<Nodo> nodos, List<Arista> aristas,List<Nodo> recorrido, Nodo inicio, Nodo Final, Nodo actual) {
+        return generarGrafico(generarDOTRecorrido(nodos, aristas,recorrido,inicio,Final,actual),"recorrido")+"/recorrido.png";
+        
+        
 
     }
     
     
     
     
+    
+    
+    
+    
       public String generarDOTRecorrido(List<Nodo> nodos, List<Arista> aristas,List<Nodo> recorrido, Nodo inicio, Nodo Final, Nodo actual) {
         
-          String colorRecorrido="blue\"";
+          String colorRecorrido="red\"";
           StringBuilder dot = new StringBuilder();
         
     dot.append("digraph Mapa {\n");
@@ -125,20 +135,20 @@ public class GenerarGrafica {
 
     }
 
-    public String generarGrafico(String contenidoDot) {
+    public String generarGrafico(String contenidoDot, String nombreArchivo) {
         String Path = System.getProperty("user.dir");
 
         System.out.println("Path del generar Grafico: "+Path);
         String dotFileName = "mapa";
 
-        File dotFile = new File(dotFileName);
+        File dotFile = new File(nombreArchivo);
         try {
             java.nio.file.Files.write(dotFile.toPath(), contenidoDot.getBytes());
 
-            System.out.println("Archivo DOT generado con éxito: " + dotFileName);
+            System.out.println("Archivo DOT generado con éxito: " + nombreArchivo);
 
             MutableGraph g = new Parser().read(dotFile);
-            Graphviz.fromGraph(g).height(600).width(600).render(Format.PNG).toFile(new File(Path+"/"+"mapa"));
+            Graphviz.fromGraph(g).height(-1).width(-1).render(Format.PNG).toFile(new File(Path+"/"+nombreArchivo));
             System.out.println("Imagen generada con éxito: automata.png");
 
         } catch (IOException ex) {
