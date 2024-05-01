@@ -20,6 +20,11 @@ public class Arista {
     private int desgastePersona;
     private int distancia;
     
+    private int traficoInicio;
+    private int traficoFin;
+    private int probabilidadTrafico;
+    
+    
     //si es doble via no se podria regresar por lo que la conexion ni existiria luego fumarnos un metodo para los que van a pie
     private boolean dobleVia;
 
@@ -36,6 +41,8 @@ public class Arista {
         this.distancia = distancia;
         this.dobleVia = dobleVia;
     }
+    
+    
 
     public Nodo getInicio() {
         return inicio;
@@ -101,10 +108,38 @@ public class Arista {
         this.dobleVia = dobleVia;
     }
 
+    public int getTraficoInicio() {
+        return traficoInicio;
+    }
+
+    public void setTraficoInicio(int traficoInicio) {
+        this.traficoInicio = traficoInicio;
+    }
+
+    public int getTraficoFin() {
+        return traficoFin;
+    }
+
+    public void setTraficoFin(int traficoFin) {
+        this.traficoFin = traficoFin;
+    }
+
+    public int getProbabilidadTrafico() {
+        return probabilidadTrafico;
+    }
+
+    public void setProbabilidadTrafico(int probabilidadTrafico) {
+        this.probabilidadTrafico = probabilidadTrafico;
+    }
+
     @Override
     public String toString() {
-        return "Arista{" + "inicio=" + inicio + ", fin=" + fin + ", timepoVehiculo=" + timepoVehiculo + ", tiempoPie=" + tiempoPie + ", consumoGas=" + consumoGas + ", desgastePersona=" + desgastePersona + ", distancia=" + distancia + ", dobleVia=" + dobleVia + '}'+"\n";
+        return "\n Arista{" + "inicio=" + inicio + ", fin=" + fin + ", timepoVehiculo=" + timepoVehiculo + ", tiempoPie=" + tiempoPie + ", consumoGas=" + consumoGas + ", desgastePersona=" + desgastePersona + ", distancia=" + distancia + ", traficoInicio=" + traficoInicio + ", traficoFin=" + traficoFin + ", probabilidadTrafico=" + probabilidadTrafico + ", dobleVia=" + dobleVia + '}';
     }
+    
+    
+
+  
     
     
     

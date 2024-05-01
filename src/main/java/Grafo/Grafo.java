@@ -54,6 +54,28 @@ public class Grafo {
         Arista arista = new Arista(inicio, fin, tiempoVehiculo, tiempoPie, consumoGas, desgastePersona, distancia, dobleVia);
         aristas.add(arista);
     }
+    
+    public void actualizarDatosTrafico(String datosTrafico) {
+        String[] lineas = datosTrafico.split("\n");
+        
+        for (String linea : lineas) {
+            String[] partes = linea.split("\\|");
+            String origen = partes[0];
+            String destino = partes[1];
+            int horaInicio = Integer.parseInt(partes[2]);
+            int horaFin = Integer.parseInt(partes[3]);
+            int probabilidadTrafico = Integer.parseInt(partes[4]);
+            
+            for (Arista arista : aristas) {
+                if (arista.getInicio().getNombre().equals(origen) && arista.getFin().getNombre().equals(destino)) {
+                    arista.setTraficoInicio(horaInicio);
+                    arista.setTraficoFin(horaFin);
+                    arista.setProbabilidadTrafico(probabilidadTrafico);
+                    break;
+                }
+            }
+        }
+    }
 
     public void cargarDatos(String datosString) {
         String[] lineas = datosString.split("\n");
