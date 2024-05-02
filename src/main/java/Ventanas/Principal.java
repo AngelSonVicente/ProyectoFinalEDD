@@ -320,16 +320,14 @@ public class Principal extends javax.swing.JFrame {
             Nodo nodoFinSeleccionado = (Nodo) fin.getSelectedItem();
             
             System.out.println("\n\n DE: " + nodoIncioSeleccionado.toString() + " A " + nodoFinSeleccionado.toString());
-            List<Camino> caminosEncontrados = mapa.encontrarCaminos(nodoIncioSeleccionado, nodoFinSeleccionado);
+            //jalar la hora del reloj
+            List<Camino> caminosEncontrados = mapa.encontrarCaminos(nodoIncioSeleccionado, nodoFinSeleccionado,14);
             
             System.out.println("\n\nCAMINOS");
             System.out.println("---------------------------------------------------------\n");
             
-            for (Camino camino : caminosEncontrados) {
-                
-                System.out.println(camino.getNodos().toString() + "  Distancias: " + camino.getDistanciaTotal() + " Gasolina: " + camino.getGasolinaTotal() + " Promedio Gasolina y Distancia: " + camino.getPromDistanciaGasolina());
-                
-            }
+            System.out.println(caminosEncontrados.toString());
+            
             
         }
 
@@ -339,16 +337,14 @@ public class Principal extends javax.swing.JFrame {
         
         String resultado = "";
         //   System.out.println("\n\n DE: " + nodoIncioSeleccionado.toString() + " A " + nodoFinSeleccionado.toString());
-        List<Camino> caminosEncontrados = mapa.encontrarCaminos(nodoIncioSeleccionado, nodoFinSeleccionado);
+      
+        //JALAR LA HORA DEL RELOJ
+        List<Camino> caminosEncontrados = mapa.encontrarCaminos(nodoIncioSeleccionado, nodoFinSeleccionado,14);
         
         System.out.println("\n\nCAMINOS");
         System.out.println("---------------------------------------------------------\n");
         
-        for (Camino camino : caminosEncontrados) {
-            
-            System.out.println(camino.getNodos().toString() + "  Distancias: " + camino.getDistanciaTotal() + " Gasolina: " + camino.getGasolinaTotal() + " Promedio Gasolina y Distancia: " + camino.getPromDistanciaGasolina());
-            
-        }
+        System.out.println(caminosEncontrados.toString());
         
         if (tipoMovilidad.getSelectedIndex() == 1 && funcionalidad.getSelectedIndex() == 1) {
             
@@ -370,6 +366,8 @@ public class Principal extends javax.swing.JFrame {
             resultado = resultado.substring(0, resultado.length() - 2);
             
             resultado += "\nGasolina Total: " + mejorCamino.getGasolinaTotal();
+            resultado += "\nTiempo Total: " + mejorCamino.getTiempoTotalVehiculo();
+            resultado += "\nrapidez Total: " + mejorCamino.getRapidezTotal();
             
             resultado += "\n\n Peor Ruta: ";
             
@@ -385,6 +383,8 @@ public class Principal extends javax.swing.JFrame {
             
             resultado += "\nGasolina Total: " + peorCamino.getGasolinaTotal();
             
+            resultado += "\nTiempo Total: " + peorCamino.getTiempoTotalVehiculo();
+            resultado += "\nrapidez Total: " + peorCamino.getRapidezTotal();
         }
         if (tipoMovilidad.getSelectedIndex() == 1 && funcionalidad.getSelectedIndex() == 2) {
             
@@ -456,6 +456,40 @@ public class Principal extends javax.swing.JFrame {
         
         if (tipoMovilidad.getSelectedIndex() == 1 && funcionalidad.getSelectedIndex() == 4) {
             System.out.println("Ruta mas rapido  en base a la distancia tiempo y trafico");
+      
+       
+            
+            resultado = "Mejor Ruta: \n";
+            
+            Camino mejorCamino = util.getMejorCaminoRapidez(caminosEncontrados);
+            recorrido = mejorCamino;
+            
+            resultado += " Recorrido: ";
+            for (Nodo nodo : mejorCamino.getNodos()) {
+                
+                resultado += nodo.getNombre() + "->";
+            }
+            
+            resultado = resultado.substring(0, resultado.length() - 2);
+            
+            resultado += "\nPromedio Rapidez: " + mejorCamino.getRapidezTotal();
+            
+            resultado += "\n\n Peor Ruta: ";
+            
+            Camino peorCamino = util.getPeorCaminoRapidez(caminosEncontrados);
+            
+            resultado += " \nRecorrido: ";
+            for (Nodo nodo : peorCamino.getNodos()) {
+                
+                resultado += nodo.getNombre() + "->";
+            }
+            
+            resultado = resultado.substring(0, resultado.length() - 2);
+            
+            resultado += "\nPromedio rapidez: " + peorCamino.getRapidezTotal();
+       
+        
+        
         }
         
         resultadoCamino.setText(resultado);
@@ -557,6 +591,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_siguientePasoActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        
         
         tipoMovilidad.setSelectedIndex(0);
         

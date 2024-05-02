@@ -105,6 +105,35 @@ public class Util {
 
         return mayor;
     }
+    public Camino getMejorCaminoRapidez(List<Camino> caminos) {
+
+        Camino menor = caminos.get(0);
+
+        for (Camino camino : caminos) {
+
+            if (camino.getRapidezTotal()> menor.getRapidezTotal()) {
+                menor = camino;
+            }
+
+        }
+
+        return menor;
+    }
+
+    public Camino getPeorCaminoRapidez(List<Camino> caminos) {
+
+        Camino mayor = caminos.get(0);
+
+        for (Camino camino : caminos) {
+
+            if (camino.getRapidezTotal()<mayor.getRapidezTotal()) {
+                mayor = camino;
+            }
+
+        }
+
+        return mayor;
+    }
 
     /*
        public List<Nodo> getNodosVecinos(List<Arista> aristas, Nodo nodo) {
@@ -134,5 +163,22 @@ public class Util {
         }
         return nodosVecinos;
     }
+    
+    
+       public float sumarMinutosAHora(float horaActual, float minutosASumar) {
+        // Extraer las horas y los minutos de la hora actual
+        
+//           System.out.println("horaActual:" +horaActual+ " Minutos a Sumar:   " + minutosASumar);
+
+        
+        // Calcular la nueva hora
+        float nuevaHora = horaActual+(minutosASumar/60);
+        
+        
+  //         System.out.println("\n Hora Nueva:   " +nuevaHora);
+        
+        return nuevaHora;
+    }
+    
 
 }

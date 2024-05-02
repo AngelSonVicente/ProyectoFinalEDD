@@ -42,11 +42,11 @@ public class Grafo {
         nodos.add(nodo);
     }
     
-    public List<Camino> encontrarCaminos(Nodo nodoOrigen, Nodo nodoDestino){
+    public List<Camino> encontrarCaminos(Nodo nodoOrigen, Nodo nodoDestino, float horaActual){
     BuscarCaminos buscarCaminos = new BuscarCaminos(aristas,nodos);
         
         
-        return buscarCaminos.encontrarCaminos(nodoOrigen, nodoDestino);
+        return buscarCaminos.encontrarCaminos(nodoOrigen, nodoDestino, horaActual);
     }
 
     public void addArista(Nodo inicio, Nodo fin, int tiempoVehiculo, int tiempoPie, int consumoGas, int desgastePersona, int distancia, boolean dobleVia) {
