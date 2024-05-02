@@ -23,114 +23,149 @@ import java.util.logging.Logger;
 public class GenerarGrafica {
 
     public String graficar(List<Nodo> nodos, List<Arista> aristas) {
-        return generarGrafico(generarDOT(nodos, aristas),"mapa")+"/mapa.png";
+        return generarGrafico(generarDOT(nodos, aristas), "mapa") + "/mapa.png";
 
     }
-    public String graficarCamino(List<Nodo> nodos, List<Arista> aristas,List<Nodo> recorrido, Nodo inicio, Nodo Final, Nodo actual) {
-        return generarGrafico(generarDOTRecorrido(nodos, aristas,recorrido,inicio,Final,actual),"recorrido")+"/recorrido.png";
-        
-        
+
+    public String graficarCamino(List<Nodo> nodos, List<Arista> aristas, List<Nodo> recorrido, Nodo inicio, Nodo Final, Nodo actual) {
+        return generarGrafico(generarDOTRecorrido(nodos, aristas, recorrido, inicio, Final, actual), "recorrido") + "/recorrido.png";
 
     }
-    
-    
-    
-    
-    
-    
-    
-    
-      public String generarDOTRecorrido(List<Nodo> nodos, List<Arista> aristas,List<Nodo> recorrido, Nodo inicio, Nodo Final, Nodo actual) {
-        
-          String colorRecorrido="red\"";
-          StringBuilder dot = new StringBuilder();
-        
-    dot.append("digraph Mapa {\n");
-    
-    // Agregar nodos al DOT con características especiales
-      for (Nodo nodo : nodos) {
-    
-          
-           
-            String color="black\"";
-            if(recorrido.contains(nodo)){
-                color=colorRecorrido;
-                
-                if(nodo.equals(inicio)){
-                    color+=" , shape=Mcircle";
-                
-                }
-                
-                
-                if(nodo.equals(Final)){
-                    
-                    color+="shape=doublecircle, style=filled, fillcolor=yellow";
-                
-                }
-                
-                if(nodo.equals(actual)){
-                    if(!actual.equals(inicio)){
-                    
-                    color+="shape=diamond";
-                    }
-                    
-                
-                }
-            
-            }
-            
-            
-            dot.append("    ").append(nodo.getId()).append(" [label=\"").append(nodo.getNombre()).append("\", color=\"").append(color).append("];\n");
-       
-      
-      }
 
-      
-    
-    // Agregar aristas al DOT con color y distancia
-    for (Arista arista : aristas) {
-        int inicioId = arista.getInicio().getId();
-        int finId = arista.getFin().getId();
-        int distancia = arista.getDistancia(); // Calcular la distancia (puedes tener un método para ello)
-        String tipo = arista.isDobleVia() ? "dir=\"both\"" : "dir=\"forward\"";
-        String color = recorrido.contains(arista.getInicio()) && recorrido.contains(arista.getFin()) ? colorRecorrido : "black\""; // Color del recorrido o negro
-        
-        dot.append("    ").append(inicioId).append(" -> ").append(finId)
-           .append(" [").append(tipo).append(", color=\"").append(color).append(", label=\"").append(distancia).append("\"];\n");
-    }
-    
-    dot.append("}");
-    
-    return dot.toString();
-    }
-    
-    
-    
-    
-    
-    public String generarDOT(List<Nodo> nodos, List<Arista> aristas) {
-    StringBuilder dot = new StringBuilder();
-        
+    public String generarDOTRecorridoAPie(List<Nodo> nodos, List<Arista> aristas, List<Arista> aristasPintadas, Nodo inicio, Nodo Final, Nodo actual) {
+
+        String colorRecorrido = "red\"";
+        StringBuilder dot = new StringBuilder();
+
         dot.append("digraph Mapa {\n");
-        
+
+        // Agregar nodos al DOT con características especiales
+        for (Nodo nodo : nodos) {
+
+            String color = "black\"";
+
+            for (Arista arista : aristasPintadas) {
+                if (arista.getInicio().equals(nodo) || arista.getFin().equals(nodo)) {
+
+                    color = "red\"";
+                } 
+                
+
+            }
+
+            if (nodo.equals(inicio)) {
+                color += " , shape=Mcircle";
+            }
+
+            if (nodo.equals(Final)) {
+                color += "shape=doublecircle, style=filled, fillcolor=yellow";
+            }
+
+            if (nodo.equals(actual)) {
+                if (!actual.equals(inicio)) {
+                    color += "shape=diamond";
+                }
+            }
+
+            dot.append("    ").append(nodo.getId()).append(" [label=\"").append(nodo.getNombre()).append("\", color=\"").append(color).append("];\n");
+        }
+
+        // Agregar aristas al DOT con color y distancia
+        for (Arista arista : aristas) {
+            int inicioId = arista.getInicio().getId();
+            int finId = arista.getFin().getId();
+            int distancia = arista.getDistancia();
+            String tipo = arista.isDobleVia() ? "dir=\"both\"" : "dir=\"forward\"";
+            String color = aristasPintadas.contains(arista) ? "red\"" : "black\""; // Color azul si la arista está en la lista de aristas pintadas
+
+            dot.append("    ").append(inicioId).append(" -> ").append(finId)
+                    .append(" [").append(tipo).append(", color=\"").append(color).append(", label=\"").append(distancia).append("\"];\n");
+        }
+
+        dot.append("}");
+
+        return dot.toString();
+    }
+
+    public String generarDOTRecorrido(List<Nodo> nodos, List<Arista> aristas, List<Nodo> recorrido, Nodo inicio, Nodo Final, Nodo actual) {
+
+        String colorRecorrido = "red\"";
+        StringBuilder dot = new StringBuilder();
+
+        dot.append("digraph Mapa {\n");
+
+        // Agregar nodos al DOT con características especiales
+        for (Nodo nodo : nodos) {
+
+            String color = "black\"";
+            if (recorrido.contains(nodo)) {
+                color = colorRecorrido;
+
+                if (nodo.equals(inicio)) {
+                    color += " , shape=Mcircle";
+
+                }
+
+                if (nodo.equals(Final)) {
+
+                    color += "shape=doublecircle, style=filled, fillcolor=yellow";
+
+                }
+
+                if (nodo.equals(actual)) {
+                    if (!actual.equals(inicio)) {
+
+                        color += "shape=diamond";
+                    }
+
+                }
+
+            }
+
+            dot.append("    ").append(nodo.getId()).append(" [label=\"").append(nodo.getNombre()).append("\", color=\"").append(color).append("];\n");
+
+        }
+
+        // Agregar aristas al DOT con color y distancia
+        for (Arista arista : aristas) {
+            int inicioId = arista.getInicio().getId();
+            int finId = arista.getFin().getId();
+            int distancia = arista.getDistancia(); // Calcular la distancia (puedes tener un método para ello)
+            String tipo = arista.isDobleVia() ? "dir=\"both\"" : "dir=\"forward\"";
+            String color = recorrido.contains(arista.getInicio()) && recorrido.contains(arista.getFin()) ? colorRecorrido : "black\""; // Color del recorrido o negro
+
+            dot.append("    ").append(inicioId).append(" -> ").append(finId)
+                    .append(" [").append(tipo).append(", color=\"").append(color).append(", label=\"").append(distancia).append("\"];\n");
+        }
+
+        dot.append("}");
+
+        return dot.toString();
+    }
+
+    public String generarDOT(List<Nodo> nodos, List<Arista> aristas) {
+        StringBuilder dot = new StringBuilder();
+
+        dot.append("digraph Mapa {\n");
+
         // Agregar nodos al DOT
         for (Nodo nodo : nodos) {
             dot.append("    ").append(nodo.getId()).append(" [label=\"").append(nodo.getNombre()).append("\"];\n");
         }
-        
+
         // Agregar aristas al DOT con distancias
         for (Arista arista : aristas) {
             int inicioId = arista.getInicio().getId();
             int finId = arista.getFin().getId();
             int distancia = arista.getDistancia(); // Calcular la distancia (puedes tener un método para ello)
             String tipo = arista.isDobleVia() ? "dir=\"both\"" : "dir=\"forward\"";
-            
+
             dot.append("    ").append(inicioId).append(" -> ").append(finId)
-               .append(" [").append(tipo).append(", label=\"").append(distancia).append("\"];\n");
+                    .append(" [").append(tipo).append(", label=\"").append(distancia).append("\"];\n");
         }
-        
+
         dot.append("}");
-        
+
         return dot.toString();
 
     }
@@ -138,7 +173,7 @@ public class GenerarGrafica {
     public String generarGrafico(String contenidoDot, String nombreArchivo) {
         String Path = System.getProperty("user.dir");
 
-        System.out.println("Path del generar Grafico: "+Path);
+        System.out.println("Path del generar Grafico: " + Path);
         String dotFileName = "mapa";
 
         File dotFile = new File(nombreArchivo);
@@ -148,7 +183,7 @@ public class GenerarGrafica {
             System.out.println("Archivo DOT generado con éxito: " + nombreArchivo);
 
             MutableGraph g = new Parser().read(dotFile);
-            Graphviz.fromGraph(g).height(-1).width(-1).render(Format.PNG).toFile(new File(Path+"/"+nombreArchivo));
+            Graphviz.fromGraph(g).height(-1).width(-1).render(Format.PNG).toFile(new File(Path + "/" + nombreArchivo));
             System.out.println("Imagen generada con éxito: automata.png");
 
         } catch (IOException ex) {

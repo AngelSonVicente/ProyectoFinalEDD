@@ -70,5 +70,65 @@ public class BuscarCaminos {
 
         caminoActual.remove(caminoActual.size() - 1);
     }
+    
+    
+    
+   public List<Camino> encontrarCaminosAPie(Nodo origen, Nodo destino) {
+   
+    List<Camino> caminos = new ArrayList<>();
+    encontrarCaminosAPieRecursivo(origen, destino, new ArrayList<>(), new ArrayList<>(), 0, 0, 0, 0, caminos);
+    return caminos;
+}
+
+private void encontrarCaminosAPieRecursivo(Nodo actual, Nodo destino, List<Nodo> caminoActual, List<Arista> aristasCamino, float rapidezActual, int Gasolina, int distanciaActual, int tiempoVehiculo, List<Camino> caminos) {
+    caminoActual.add(actual);
+
+    // Verificamos si el nodo actual es el nodo destino
+    if (actual.equals(destino)) {
+        // Si el nodo actual es el destino, creamos un nuevo objeto Camino con el camino actual y las aristas correspondientes, y lo agregamos a la lista de caminos
+        Camino camino = new Camino();
+        camino.getNodos().addAll(caminoActual);
+        camino.getAristas().addAll(aristasCamino); // Agregamos las aristas al camino
+        camino.addDistancia(distanciaActual);
+        camino.addConsumoGasolina(Gasolina);
+        camino.addRapidezTotal(rapidezActual);
+        camino.addTiempoVehiculo(tiempoVehiculo);
+        caminos.add(camino);
+    } else {
+        // Exploramos todas las aristas que salen de este nodo
+        for (Arista arista : aristas) {
+            if (arista.getInicio().equals(actual)) {
+                Nodo siguiente = arista.getFin();
+                int distanciaArista = arista.getDistancia();
+                int consumoGasArista = arista.getConsumoGas();
+                int tiempoArista = arista.getTimepoVehiculo();
+                float rapidezArista = arista.getRapidezVehiculo(horaActual);
+
+                if (!caminoActual.contains(siguiente)) {
+                    // Llamamos recursivamente a la función para explorar el siguiente nodo y continuar construyendo el camino
+                    List<Arista> nuevasAristasCamino = new ArrayList<>(aristasCamino);
+                    nuevasAristasCamino.add(arista); // Agregamos la arista al camino
+                    encontrarCaminosAPieRecursivo(siguiente, destino, caminoActual, nuevasAristasCamino, rapidezArista + rapidezActual, Gasolina + consumoGasArista, distanciaActual + distanciaArista,  tiempoVehiculo + tiempoArista, caminos);
+                }
+            } else if (arista.getFin().equals(actual)) {
+                // En este caso, invertimos el inicio y el fin de la arista para explorar la conexión en ambas direcciones
+                Nodo siguiente = arista.getInicio();
+                int distanciaArista = arista.getDistancia();
+                int consumoGasArista = arista.getConsumoGas();
+                int tiempoArista = arista.getTimepoVehiculo();
+                float rapidezArista = arista.getRapidezVehiculo(horaActual);
+
+                if (!caminoActual.contains(siguiente)) {
+                    // Llamamos recursivamente a la función para explorar el siguiente nodo y continuar construyendo el camino
+                    List<Arista> nuevasAristasCamino = new ArrayList<>(aristasCamino);
+                    nuevasAristasCamino.add(arista); // Agregamos la arista al camino
+                    encontrarCaminosAPieRecursivo(siguiente, destino, caminoActual, nuevasAristasCamino, rapidezArista + rapidezActual, Gasolina + consumoGasArista, distanciaActual + distanciaArista, tiempoVehiculo + tiempoArista, caminos);
+                }
+            }
+        }
+    }
+
+    caminoActual.remove(caminoActual.size() - 1);
+}
 
 }

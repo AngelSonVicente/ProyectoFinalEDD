@@ -19,16 +19,25 @@ public class Camino {
     private int gasolinaTotal;
     private float tiempoTotalVehiculo;
     private float rapidezTotal;
+    private List<Arista> aristas; // Lista de aristas que se tomaron en el camino
+
 
     public Camino() {
         this.nodos = new ArrayList<>();
         this.distanciaTotal = 0;
         this.tiempoTotalVehiculo = 0;
         this.rapidezTotal = 0;
+        this.aristas = new ArrayList<>();
     }
+    
+    
 
     public void addNodo(Nodo nodo) {
         nodos.add(nodo);
+    }
+    
+      public void addArista(Arista arista) {
+        aristas.add(arista);
     }
 
     public void addDistancia(int distancia) {
@@ -93,10 +102,23 @@ public class Camino {
         this.rapidezTotal = rapidezTotal;
     }
 
+    public List<Arista> getAristas() {
+        return aristas;
+    }
+
+    public void setAristas(List<Arista> aristas) {
+        this.aristas = aristas;
+    }
+
     @Override
     public String toString() {
-        return "\nCamino{" + "nodos=" + nodos + ", distanciaTotal=" + distanciaTotal + ", gasolinaTotal=" + gasolinaTotal + ", tiempoTotalVehiculo=" + tiempoTotalVehiculo + ", rapidezTotal=" + rapidezTotal + '}';
+        return "\nCamino{" + "nodos=" + nodos + ", distanciaTotal=" + distanciaTotal + ", gasolinaTotal=" + gasolinaTotal + ", tiempoTotalVehiculo=" + tiempoTotalVehiculo + ", rapidezTotal=" + rapidezTotal + ", aristas=" + aristas + '}';
     }
+    
+    
+    
+
+  
     
 
  

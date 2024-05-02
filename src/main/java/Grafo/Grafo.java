@@ -48,6 +48,12 @@ public class Grafo {
         
         return buscarCaminos.encontrarCaminos(nodoOrigen, nodoDestino, horaActual);
     }
+    public List<Camino> encontrarCaminosAPie(Nodo nodoOrigen, Nodo nodoDestino){
+    BuscarCaminos buscarCaminos = new BuscarCaminos(aristas,nodos);
+        
+        
+        return buscarCaminos.encontrarCaminosAPie(nodoOrigen, nodoDestino);
+    }
 
     public void addArista(Nodo inicio, Nodo fin, int tiempoVehiculo, int tiempoPie, int consumoGas, int desgastePersona, int distancia, boolean dobleVia) {
 

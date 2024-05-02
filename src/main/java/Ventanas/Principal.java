@@ -253,12 +253,12 @@ public class Principal extends javax.swing.JFrame {
 
     private void ImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportarActionPerformed
         JFrame ventana = new JFrame("Selector de Archivos");
-        
+
         JFileChooser selectorDeArchivos = new JFileChooser();
         selectorDeArchivos.setFileFilter(new FileNameExtensionFilter("Archivos de texto", "txt"));
-        
+
         int resultado = selectorDeArchivos.showOpenDialog(ventana);
-        
+
         if (resultado == JFileChooser.APPROVE_OPTION) {
             try {
                 String rutaArchivo = selectorDeArchivos.getSelectedFile().getAbsolutePath();
@@ -267,321 +267,335 @@ public class Principal extends javax.swing.JFrame {
                 ex.printStackTrace();
             }
         }
-        
+
 
     }//GEN-LAST:event_ImportarActionPerformed
-    
+
     private Util util = new Util();
 
     private void tipoMovilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoMovilidadActionPerformed
-        
+
         funcionalidad.removeAllItems();
         if (tipoMovilidad.getSelectedIndex() == 1) {
-            
+
             funcionalidad.addItem("Seleccione la funcionalidad");
             funcionalidad.addItem("Mejor ruta en base a la gasolina");
             funcionalidad.addItem("Mejor ruta en base a la distancia");
             funcionalidad.addItem("Mejor ruta en base a la gasolina y la distancia");
             funcionalidad.addItem("Ruta más rápida en base a la distancia, tiempo y probabilidad de tráfico");
-            
+
         }
-        
+
         if (tipoMovilidad.getSelectedIndex() == 2) {
-            
+
             funcionalidad.addItem("Seleccione la funcionalidad");
             funcionalidad.addItem("Mejor ruta en base al desgaste físico");
             funcionalidad.addItem("Mejor ruta en base al desgaste físico y la distancia");
             funcionalidad.addItem("Mejor ruta en base a la distancia");
-            
+
         }
-        
+
 
     }//GEN-LAST:event_tipoMovilidadActionPerformed
-    
+
     Camino recorrido = new Camino();
 
     private void funcionalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_funcionalidadActionPerformed
-        
+
         Nodo nodoIncioSeleccionado = (Nodo) inicio.getSelectedItem();
-        
+
         Nodo nodoFinSeleccionado = (Nodo) fin.getSelectedItem();
-        
+
         mostrarCamino(nodoIncioSeleccionado, nodoFinSeleccionado);
-        
+
 
     }//GEN-LAST:event_funcionalidadActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         if (mapa != null) {
-            
+
             Nodo nodoIncioSeleccionado = (Nodo) inicio.getSelectedItem();
-            
+
             Nodo nodoFinSeleccionado = (Nodo) fin.getSelectedItem();
-            
+
             System.out.println("\n\n DE: " + nodoIncioSeleccionado.toString() + " A " + nodoFinSeleccionado.toString());
             //jalar la hora del reloj
-            List<Camino> caminosEncontrados = mapa.encontrarCaminos(nodoIncioSeleccionado, nodoFinSeleccionado,14);
-            
+            List<Camino> caminosEncontrados = mapa.encontrarCaminos(nodoIncioSeleccionado, nodoFinSeleccionado, 14);
+
             System.out.println("\n\nCAMINOS");
             System.out.println("---------------------------------------------------------\n");
-            
+
             System.out.println(caminosEncontrados.toString());
-            
-            
+
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
-    
+
     public void mostrarCamino(Nodo nodoIncioSeleccionado, Nodo nodoFinSeleccionado) {
-        
+
         String resultado = "";
         //   System.out.println("\n\n DE: " + nodoIncioSeleccionado.toString() + " A " + nodoFinSeleccionado.toString());
-      
-        //JALAR LA HORA DEL RELOJ
-        List<Camino> caminosEncontrados = mapa.encontrarCaminos(nodoIncioSeleccionado, nodoFinSeleccionado,14);
-        
-        System.out.println("\n\nCAMINOS");
-        System.out.println("---------------------------------------------------------\n");
-        
-        System.out.println(caminosEncontrados.toString());
-        
-        if (tipoMovilidad.getSelectedIndex() == 1 && funcionalidad.getSelectedIndex() == 1) {
-            
-            System.out.println("Mejor rita en base a la gas");
-            
-            resultado = "Mejor Ruta: \n";
-            
-            Camino mejorCamino = util.getMejorCaminoGasolina(caminosEncontrados);
-            recorrido = mejorCamino;
-            
-            System.out.println(grafica.generarDOTRecorrido(mapa.getNodos(), mapa.getAristas(), mejorCamino.getNodos(), nodoIncioSeleccionado, nodoFinSeleccionado, mapa.getNodos().get(6)));
-            
-            resultado += " Recorrido: ";
-            for (Nodo nodo : mejorCamino.getNodos()) {
-                
-                resultado += nodo.getNombre() + "->";
+
+        if (tipoMovilidad.getSelectedIndex() == 1) {
+            List<Camino> caminosEncontrados = mapa.encontrarCaminos(nodoIncioSeleccionado, nodoFinSeleccionado, 14);
+            //JALAR LA HORA DEL RELOJ
+            System.out.println("\n\nCAMINOS VEHICULO");
+            System.out.println("---------------------------------------------------------\n");
+
+            System.out.println(caminosEncontrados.toString());
+
+            if (funcionalidad.getSelectedIndex() == 1) {
+
+                System.out.println("Mejor rita en base a la gas");
+
+                resultado = "Mejor Ruta: \n";
+
+                Camino mejorCamino = util.getMejorCaminoGasolina(caminosEncontrados);
+                recorrido = mejorCamino;
+
+                System.out.println(grafica.generarDOTRecorrido(mapa.getNodos(), mapa.getAristas(), mejorCamino.getNodos(), nodoIncioSeleccionado, nodoFinSeleccionado, mapa.getNodos().get(6)));
+
+                resultado += " Recorrido: ";
+                for (Nodo nodo : mejorCamino.getNodos()) {
+
+                    resultado += nodo.getNombre() + "->";
+                }
+
+                resultado = resultado.substring(0, resultado.length() - 2);
+
+                resultado += "\nGasolina Total: " + mejorCamino.getGasolinaTotal();
+                resultado += "\nTiempo Total: " + mejorCamino.getTiempoTotalVehiculo();
+                resultado += "\nrapidez Total: " + mejorCamino.getRapidezTotal();
+
+                resultado += "\n\n Peor Ruta: ";
+
+                Camino peorCamino = util.getPeorCaminoGasolina(caminosEncontrados);
+
+                resultado += " \nRecorrido: ";
+                for (Nodo nodo : peorCamino.getNodos()) {
+
+                    resultado += nodo.getNombre() + "->";
+                }
+
+                resultado = resultado.substring(0, resultado.length() - 2);
+
+                resultado += "\nGasolina Total: " + peorCamino.getGasolinaTotal();
+
+                resultado += "\nTiempo Total: " + peorCamino.getTiempoTotalVehiculo();
+                resultado += "\nrapidez Total: " + peorCamino.getRapidezTotal();
             }
-            
-            resultado = resultado.substring(0, resultado.length() - 2);
-            
-            resultado += "\nGasolina Total: " + mejorCamino.getGasolinaTotal();
-            resultado += "\nTiempo Total: " + mejorCamino.getTiempoTotalVehiculo();
-            resultado += "\nrapidez Total: " + mejorCamino.getRapidezTotal();
-            
-            resultado += "\n\n Peor Ruta: ";
-            
-            Camino peorCamino = util.getPeorCaminoGasolina(caminosEncontrados);
-            
-            resultado += " \nRecorrido: ";
-            for (Nodo nodo : peorCamino.getNodos()) {
-                
-                resultado += nodo.getNombre() + "->";
+            if (funcionalidad.getSelectedIndex() == 2) {
+
+                System.out.println("Mejor rita en base a la Distancia");
+
+                resultado = "Mejor Ruta: \n";
+
+                Camino mejorCamino = util.getMejorCaminoDistancia(caminosEncontrados);
+                recorrido = mejorCamino;
+
+                resultado += " Recorrido: ";
+                for (Nodo nodo : mejorCamino.getNodos()) {
+
+                    resultado += nodo.getNombre() + "->";
+                }
+
+                resultado = resultado.substring(0, resultado.length() - 2);
+
+                resultado += "\nDistancia Total: " + mejorCamino.getDistanciaTotal();
+
+                resultado += "\n\n Peor Ruta: ";
+
+                Camino peorCamino = util.getPeorCaminoDistancia(caminosEncontrados);
+
+                resultado += " \nRecorrido: ";
+                for (Nodo nodo : peorCamino.getNodos()) {
+
+                    resultado += nodo.getNombre() + "->";
+                }
+
+                resultado = resultado.substring(0, resultado.length() - 2);
+
+                resultado += "\nDistancia Total: " + peorCamino.getDistanciaTotal();
+
             }
-            
-            resultado = resultado.substring(0, resultado.length() - 2);
-            
-            resultado += "\nGasolina Total: " + peorCamino.getGasolinaTotal();
-            
-            resultado += "\nTiempo Total: " + peorCamino.getTiempoTotalVehiculo();
-            resultado += "\nrapidez Total: " + peorCamino.getRapidezTotal();
+            if (funcionalidad.getSelectedIndex() == 3) {
+                System.out.println("Mejor rita en base a la gas y distancia");
+
+                resultado = "Mejor Ruta: \n";
+
+                Camino mejorCamino = util.getMejorCaminoGasolinaDistancia(caminosEncontrados);
+                recorrido = mejorCamino;
+
+                resultado += " Recorrido: ";
+                for (Nodo nodo : mejorCamino.getNodos()) {
+
+                    resultado += nodo.getNombre() + "->";
+                }
+
+                resultado = resultado.substring(0, resultado.length() - 2);
+
+                resultado += "\nPromedio Gasolina y Distancia  Total: " + mejorCamino.getPromDistanciaGasolina();
+
+                resultado += "\n\n Peor Ruta: ";
+
+                Camino peorCamino = util.getPeorCaminoGasolinaDistancia(caminosEncontrados);
+
+                resultado += " \nRecorrido: ";
+                for (Nodo nodo : peorCamino.getNodos()) {
+
+                    resultado += nodo.getNombre() + "->";
+                }
+
+                resultado = resultado.substring(0, resultado.length() - 2);
+
+                resultado += "\nPromedio Gasolina Y Distancia Total: " + peorCamino.getPromDistanciaGasolina();
+
+            }
+
+            if (funcionalidad.getSelectedIndex() == 4) {
+                System.out.println("Ruta mas rapido  en base a la distancia tiempo y trafico");
+
+                resultado = "Mejor Ruta: \n";
+
+                Camino mejorCamino = util.getMejorCaminoRapidez(caminosEncontrados);
+                recorrido = mejorCamino;
+
+                resultado += " Recorrido: ";
+                for (Nodo nodo : mejorCamino.getNodos()) {
+
+                    resultado += nodo.getNombre() + "->";
+                }
+
+                resultado = resultado.substring(0, resultado.length() - 2);
+
+                resultado += "\nPromedio Rapidez: " + mejorCamino.getRapidezTotal();
+
+                resultado += "\n\n Peor Ruta: ";
+
+                Camino peorCamino = util.getPeorCaminoRapidez(caminosEncontrados);
+
+                resultado += " \nRecorrido: ";
+                for (Nodo nodo : peorCamino.getNodos()) {
+
+                    resultado += nodo.getNombre() + "->";
+                }
+
+                resultado = resultado.substring(0, resultado.length() - 2);
+
+                resultado += "\nPromedio rapidez: " + peorCamino.getRapidezTotal();
+
+            }
+
         }
-        if (tipoMovilidad.getSelectedIndex() == 1 && funcionalidad.getSelectedIndex() == 2) {
-            
-            System.out.println("Mejor rita en base a la Distancia");
-            
-            resultado = "Mejor Ruta: \n";
-            
-            Camino mejorCamino = util.getMejorCaminoDistancia(caminosEncontrados);
-            recorrido = mejorCamino;
-            
-            resultado += " Recorrido: ";
-            for (Nodo nodo : mejorCamino.getNodos()) {
+
+        if (tipoMovilidad.getSelectedIndex() == 2) {
+
+            List<Camino> caminosEncontrados = mapa.encontrarCaminosAPie(nodoIncioSeleccionado, nodoFinSeleccionado);
+
+            System.out.println("\n\nCAMINOS A PATA");
+            System.out.println("---------------------------------------------------------\n");
+
+            System.out.println(caminosEncontrados.toString());
+
+                System.out.println( grafica.generarDOTRecorridoAPie(mapa.getNodos(), mapa.getAristas(), caminosEncontrados.get(2).getAristas(), nodoIncioSeleccionado, nodoFinSeleccionado, nodoIncioSeleccionado));
+            if (funcionalidad.getSelectedIndex() == 1) {
                 
-                resultado += nodo.getNombre() + "->";
-            }
-            
-            resultado = resultado.substring(0, resultado.length() - 2);
-            
-            resultado += "\nDistancia Total: " + mejorCamino.getDistanciaTotal();
-            
-            resultado += "\n\n Peor Ruta: ";
-            
-            Camino peorCamino = util.getPeorCaminoDistancia(caminosEncontrados);
-            
-            resultado += " \nRecorrido: ";
-            for (Nodo nodo : peorCamino.getNodos()) {
                 
-                resultado += nodo.getNombre() + "->";
+
             }
-            
-            resultado = resultado.substring(0, resultado.length() - 2);
-            
-            resultado += "\nDistancia Total: " + peorCamino.getDistanciaTotal();
-            
+
         }
-        if (tipoMovilidad.getSelectedIndex() == 1 && funcionalidad.getSelectedIndex() == 3) {
-            System.out.println("Mejor rita en base a la gas y distancia");
-            
-            resultado = "Mejor Ruta: \n";
-            
-            Camino mejorCamino = util.getMejorCaminoGasolinaDistancia(caminosEncontrados);
-            recorrido = mejorCamino;
-            
-            resultado += " Recorrido: ";
-            for (Nodo nodo : mejorCamino.getNodos()) {
-                
-                resultado += nodo.getNombre() + "->";
-            }
-            
-            resultado = resultado.substring(0, resultado.length() - 2);
-            
-            resultado += "\nPromedio Gasolina y Distancia  Total: " + mejorCamino.getPromDistanciaGasolina();
-            
-            resultado += "\n\n Peor Ruta: ";
-            
-            Camino peorCamino = util.getPeorCaminoGasolinaDistancia(caminosEncontrados);
-            
-            resultado += " \nRecorrido: ";
-            for (Nodo nodo : peorCamino.getNodos()) {
-                
-                resultado += nodo.getNombre() + "->";
-            }
-            
-            resultado = resultado.substring(0, resultado.length() - 2);
-            
-            resultado += "\nPromedio Gasolina Y Distancia Total: " + peorCamino.getPromDistanciaGasolina();
-            
-        }
-        
-        if (tipoMovilidad.getSelectedIndex() == 1 && funcionalidad.getSelectedIndex() == 4) {
-            System.out.println("Ruta mas rapido  en base a la distancia tiempo y trafico");
-      
-       
-            
-            resultado = "Mejor Ruta: \n";
-            
-            Camino mejorCamino = util.getMejorCaminoRapidez(caminosEncontrados);
-            recorrido = mejorCamino;
-            
-            resultado += " Recorrido: ";
-            for (Nodo nodo : mejorCamino.getNodos()) {
-                
-                resultado += nodo.getNombre() + "->";
-            }
-            
-            resultado = resultado.substring(0, resultado.length() - 2);
-            
-            resultado += "\nPromedio Rapidez: " + mejorCamino.getRapidezTotal();
-            
-            resultado += "\n\n Peor Ruta: ";
-            
-            Camino peorCamino = util.getPeorCaminoRapidez(caminosEncontrados);
-            
-            resultado += " \nRecorrido: ";
-            for (Nodo nodo : peorCamino.getNodos()) {
-                
-                resultado += nodo.getNombre() + "->";
-            }
-            
-            resultado = resultado.substring(0, resultado.length() - 2);
-            
-            resultado += "\nPromedio rapidez: " + peorCamino.getRapidezTotal();
-       
-        
-        
-        }
-        
+
         resultadoCamino.setText(resultado);
-        
+
     }
-    
+
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
         Nodo nodoIncioSeleccionado = (Nodo) siguientePaso.getSelectedItem();
-        
+
         if (nodoIncioSeleccionado != fin.getSelectedItem()) {
-            
+
             Nodo nodoFinSeleccionado = (Nodo) fin.getSelectedItem();
-            
+
             mostrarCamino(nodoIncioSeleccionado, nodoFinSeleccionado);
-            
+
             System.out.println(grafica.generarDOTRecorrido(mapa.getNodos(), mapa.getAristas(), recorrido.getNodos(), (Nodo) inicio.getSelectedItem(), (Nodo) fin.getSelectedItem(), (Nodo) siguientePaso.getSelectedItem()));
-            
+
             Nodo nodoActual = (Nodo) siguientePaso.getSelectedItem();
-            
+
             List<Nodo> vecinos = util.getNodosVecinos(mapa.getAristas(), (Nodo) siguientePaso.getSelectedItem());
-            
+
             DefaultComboBoxModel<Nodo> comboBoxModel = new DefaultComboBoxModel<>();
-            
+
             comboBoxModel.addAll(vecinos);
-            
+
             siguientePaso.setModel(comboBoxModel);
-            
+
             File imagen = new File(grafica.graficarCamino(mapa.getNodos(), mapa.getAristas(), recorrido.getNodos(), (Nodo) inicio.getSelectedItem(), (Nodo) fin.getSelectedItem(), nodoActual));
-            
+
             if (imagen.exists() && imagen.isFile()) {
                 try {
-                    
+
                     Desktop.getDesktop().open(imagen);
                 } catch (IOException e) {
-                    
+
                     e.printStackTrace();
                 }
             }
-            
+
         } else {
-            
+
             tipoMovilidad.setSelectedIndex(0);
             resultadoCamino.setText("FELICIDADES HA LLEGADO A SU DESTINO!");
-            
+
             inicio.setEnabled(true);
             fin.setEnabled(true);
             tipoMovilidad.setEnabled(true);
             funcionalidad.setEnabled(true);
             comenzarViaje.setEnabled(true);
-            
+
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed
-    
+
 
     private void comenzarViajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comenzarViajeActionPerformed
         //cargar los pasos siguientes
-        
+
         if (tipoMovilidad.getSelectedIndex() == 0 || funcionalidad.getSelectedIndex() == 0) {
-            
+
             resultadoCamino.setText("No ha elegido el tipo de movilidad o la funcionalidad! \n PORFAVOR SELECCIONELO!");
-            
+
         } else {
-            
+
             List<Nodo> vecinos = util.getNodosVecinos(mapa.getAristas(), (Nodo) inicio.getSelectedItem());
-            
+
             DefaultComboBoxModel<Nodo> comboBoxModel = new DefaultComboBoxModel<>();
-            
+
             comboBoxModel.addAll(vecinos);
-            
+
             siguientePaso.setModel(comboBoxModel);
 
             // Cargar la imagen desde el archivo
             File imagen = new File(grafica.graficarCamino(mapa.getNodos(), mapa.getAristas(), recorrido.getNodos(), (Nodo) inicio.getSelectedItem(), (Nodo) fin.getSelectedItem(), (Nodo) inicio.getSelectedItem()));
-            
+
             if (imagen.exists() && imagen.isFile()) {
                 try {
-                    
+
                     Desktop.getDesktop().open(imagen);
                 } catch (IOException e) {
                 }
             }
-            
+
             inicio.setEnabled(false);
             fin.setEnabled(false);
             tipoMovilidad.setEnabled(false);
             funcionalidad.setEnabled(false);
             comenzarViaje.setEnabled(false);
-            
-            
+
         }
 
     }//GEN-LAST:event_comenzarViajeActionPerformed
@@ -591,30 +605,28 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_siguientePasoActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
-        
+
         tipoMovilidad.setSelectedIndex(0);
-        
+
         tipoMovilidad.setEnabled(true);
         funcionalidad.setEnabled(true);
         inicio.setEnabled(true);
         fin.setEnabled(true);
         comenzarViaje.setEnabled(true);
-        
-        
+
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
 
         System.out.println(mapa.toString());
-           JFrame ventana = new JFrame("Selector de Archivos");
-        
+        JFrame ventana = new JFrame("Selector de Archivos");
+
         JFileChooser selectorDeArchivos = new JFileChooser();
         selectorDeArchivos.setFileFilter(new FileNameExtensionFilter("Archivos de texto", "txt"));
-        
+
         int resultado = selectorDeArchivos.showOpenDialog(ventana);
-        
+
         if (resultado == JFileChooser.APPROVE_OPTION) {
             try {
                 String rutaArchivo = selectorDeArchivos.getSelectedFile().getAbsolutePath();
@@ -623,83 +635,71 @@ public class Principal extends javax.swing.JFrame {
                 ex.printStackTrace();
             }
         }
-        
-        
-        
-        
-        
+
         System.out.println("---------------------------------------------------------------------");
         System.out.println(mapa.toString());
-        
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-    
+
     Grafo mapa = new Grafo();
     GenerarGrafica grafica = new GenerarGrafica();
 
-
     private void getDatosTrafico(String rutaArchivo) {
-        
-      
-        
+
         try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
             String linea;
             String datos = "";
-           
+
             while ((linea = br.readLine()) != null) {
                 datos += linea + "\n";
                 System.out.println(linea);
-                
+
             }
-            
+
             mapa.actualizarDatosTrafico(datos);
-            
-           
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
     private void mostrarContenidoArchivo(String rutaArchivo) {
-        
+
         mapa.borrarDatos();
-        
+
         try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
             String linea;
             String datos = "";
-           
+
             while ((linea = br.readLine()) != null) {
                 datos += linea + "\n";
                 System.out.println(linea);
-                
+
             }
-            
+
             mapa.cargarDatos(datos);
-            
+
             System.out.println(mapa.toString());
-            
+
             System.out.println("\n-------------------------------------------------------------------------------------\n");
-            
+
             System.out.println("Grafica: ");
-            
+
             String Path = grafica.graficar(mapa.getNodos(), mapa.getAristas());
-            
+
             System.out.println(Path);
             ImageIcon imageIcon = new ImageIcon(Path); // Reemplaza con la ruta de tu imagen
             graficaMapa.setIcon(imageIcon);
-            
+
             System.out.println(grafica.generarDOT(mapa.getNodos(), mapa.getAristas()));
-            
+
             for (Nodo nodo : mapa.getNodos()) {
                 inicio.addItem(nodo);
                 fin.addItem(nodo);
-                
+
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
