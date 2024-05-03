@@ -31,6 +31,11 @@ public class GenerarGrafica {
         return generarGrafico(generarDOTRecorrido(nodos, aristas, recorrido, inicio, Final, actual), "recorrido") + "/recorrido.png";
 
     }
+    
+    public String graficarCaminoAPie(List<Nodo> nodos, List<Arista> aristas, List<Arista> aristasPintadas, Nodo inicio, Nodo Final, Nodo actual){
+    
+    return generarGrafico(generarDOTRecorridoAPie(nodos, aristas, aristasPintadas, inicio, Final, actual),"recorrido")+"/recorrido.png";
+    }
 
     public String generarDOTRecorridoAPie(List<Nodo> nodos, List<Arista> aristas, List<Arista> aristasPintadas, Nodo inicio, Nodo Final, Nodo actual) {
 

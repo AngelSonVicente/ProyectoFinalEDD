@@ -292,6 +292,7 @@ public class Principal extends javax.swing.JFrame {
             funcionalidad.addItem("Mejor ruta en base al desgaste físico");
             funcionalidad.addItem("Mejor ruta en base al desgaste físico y la distancia");
             funcionalidad.addItem("Mejor ruta en base a la distancia");
+            funcionalidad.addItem("Ruta mas rapida en base al distancia y tiempo");
 
         }
 
@@ -310,6 +311,20 @@ public class Principal extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_funcionalidadActionPerformed
+
+    public String generarMensajeRecorrido(List<Nodo> nodos) {
+
+        String resultado = "";
+
+        for (Nodo nodo : nodos) {
+
+            resultado += nodo.getNombre() + "->";
+        }
+
+        resultado = resultado.substring(0, resultado.length() - 2);
+
+        return resultado;
+    }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
@@ -356,17 +371,9 @@ public class Principal extends javax.swing.JFrame {
 
                 System.out.println(grafica.generarDOTRecorrido(mapa.getNodos(), mapa.getAristas(), mejorCamino.getNodos(), nodoIncioSeleccionado, nodoFinSeleccionado, mapa.getNodos().get(6)));
 
-                resultado += " Recorrido: ";
-                for (Nodo nodo : mejorCamino.getNodos()) {
-
-                    resultado += nodo.getNombre() + "->";
-                }
-
-                resultado = resultado.substring(0, resultado.length() - 2);
+                resultado += " Recorrido: \n" + generarMensajeRecorrido(mejorCamino.getNodos());
 
                 resultado += "\nGasolina Total: " + mejorCamino.getGasolinaTotal();
-                resultado += "\nTiempo Total: " + mejorCamino.getTiempoTotalVehiculo();
-                resultado += "\nrapidez Total: " + mejorCamino.getRapidezTotal();
 
                 resultado += "\n\n Peor Ruta: ";
 
@@ -470,6 +477,7 @@ public class Principal extends javax.swing.JFrame {
                 resultado = resultado.substring(0, resultado.length() - 2);
 
                 resultado += "\nPromedio Rapidez: " + mejorCamino.getRapidezTotal();
+                resultado += "\nTitempo de llegada: " + mejorCamino.getTiempoTotalVehiculo() + " minutos";
 
                 resultado += "\n\n Peor Ruta: ";
 
@@ -484,6 +492,7 @@ public class Principal extends javax.swing.JFrame {
                 resultado = resultado.substring(0, resultado.length() - 2);
 
                 resultado += "\nPromedio rapidez: " + peorCamino.getRapidezTotal();
+                resultado += "\nTitempo de llegada: " + peorCamino.getTiempoTotalVehiculo() + " minutos";
 
             }
 
@@ -498,10 +507,90 @@ public class Principal extends javax.swing.JFrame {
 
             System.out.println(caminosEncontrados.toString());
 
-                System.out.println( grafica.generarDOTRecorridoAPie(mapa.getNodos(), mapa.getAristas(), caminosEncontrados.get(2).getAristas(), nodoIncioSeleccionado, nodoFinSeleccionado, nodoIncioSeleccionado));
+            //         System.out.println( grafica.generarDOTRecorridoAPie(mapa.getNodos(), mapa.getAristas(), caminosEncontrados.get(2).getAristas(), nodoIncioSeleccionado, nodoFinSeleccionado, nodoIncioSeleccionado));
             if (funcionalidad.getSelectedIndex() == 1) {
-                
-                
+
+                resultado = "Mejor Ruta: \n";
+
+                Camino mejorCamino = util.getMejorDesgasteFisico(caminosEncontrados);
+                recorrido = mejorCamino;
+
+                resultado += " Recorrido: \n" + generarMensajeRecorrido(mejorCamino.getNodos());
+
+                resultado += "\n Desgaste Fisico: " + mejorCamino.getDesgasteFisico();
+
+                resultado += "\n\n Peor Ruta: ";
+
+                Camino peorCamino = util.getPeorDesgasteFisico(caminosEncontrados);
+
+                resultado += " \nRecorrido: \n " + generarMensajeRecorrido(peorCamino.getNodos());
+
+                resultado += "\nDesgaste Fisico: " + peorCamino.getDesgasteFisico();
+
+            }
+            if (funcionalidad.getSelectedIndex() == 2) {
+
+                resultado = "Mejor Ruta: \n";
+
+                Camino mejorCamino = util.getMejorCaminoDistanciaDesgaste(caminosEncontrados);
+                recorrido = mejorCamino;
+
+                resultado += " Recorrido: \n" + generarMensajeRecorrido(mejorCamino.getNodos());
+
+                resultado += "\n Distancia/Desgaste: " + mejorCamino.getPromDistanciaDesgaste();
+
+                resultado += "\n\n Peor Ruta: ";
+
+                Camino peorCamino = util.getPeorCaminoDistanciaDesgaste(caminosEncontrados);
+
+                resultado += " \nRecorrido: \n " + generarMensajeRecorrido(peorCamino.getNodos());
+
+                resultado += "\nDistancia/Desgaste: " + peorCamino.getPromDistanciaDesgaste();
+
+            }
+            if (funcionalidad.getSelectedIndex() == 3) {
+
+                resultado = "Mejor Ruta: \n";
+
+                Camino mejorCamino = util.getMejorCaminoDistancia(caminosEncontrados);
+                recorrido = mejorCamino;
+
+                resultado += " Recorrido: \n" + generarMensajeRecorrido(mejorCamino.getNodos());
+
+                resultado += "\n Distancia Total: " + mejorCamino.getDistanciaTotal();
+
+                resultado += "\n\n Peor Ruta: ";
+
+                Camino peorCamino = util.getPeorCaminoDistancia(caminosEncontrados);
+
+                resultado += " \nRecorrido: \n " + generarMensajeRecorrido(peorCamino.getNodos());
+
+                resultado += "\nDistancia Total: " + peorCamino.getDistanciaTotal();
+
+            }
+
+            if (funcionalidad.getSelectedIndex() == 4) {
+
+                resultado = "Mejor Ruta: \n";
+
+                Camino mejorCamino = util.getMejorCaminoRapidezPie(caminosEncontrados);
+                recorrido = mejorCamino;
+
+                resultado += " Recorrido: \n" + generarMensajeRecorrido(mejorCamino.getNodos());
+
+                resultado += "\nPromedio rapidez: " + mejorCamino.getRapidezTotal();
+                resultado += "\nTitempo de llegada: " + mejorCamino.getTiemporTotalPie()+ " minutos";
+
+                resultado += "\n\n Peor Ruta: ";
+
+                Camino peorCamino = util.getPeorCaminoRapidezPie(caminosEncontrados);
+
+                resultado += " \nRecorrido: \n " + generarMensajeRecorrido(peorCamino.getNodos());
+
+                resultado += "\nDistancia Total: " + peorCamino.getDistanciaTotal();
+
+                resultado += "\nPromedio rapidez: " + peorCamino.getRapidezTotal();
+                resultado += "\nTitempo de llegada: " + peorCamino.getTiemporTotalPie()+ " minutos";
 
             }
 
@@ -571,6 +660,7 @@ public class Principal extends javax.swing.JFrame {
 
         } else {
 
+            if(tipoMovilidad.getSelectedIndex()==1){
             List<Nodo> vecinos = util.getNodosVecinos(mapa.getAristas(), (Nodo) inicio.getSelectedItem());
 
             DefaultComboBoxModel<Nodo> comboBoxModel = new DefaultComboBoxModel<>();
@@ -588,6 +678,33 @@ public class Principal extends javax.swing.JFrame {
                     Desktop.getDesktop().open(imagen);
                 } catch (IOException e) {
                 }
+            }
+            }
+            
+            if(tipoMovilidad.getSelectedIndex()==2){
+                
+                List<Nodo> vecinos = util.getNodosVecinos(mapa.getAristas(), (Nodo) inicio.getSelectedItem());
+
+            DefaultComboBoxModel<Nodo> comboBoxModel = new DefaultComboBoxModel<>();
+
+            comboBoxModel.addAll(vecinos);
+
+            siguientePaso.setModel(comboBoxModel);
+
+            // Cargar la imagen desde el archivo
+            File imagen = new File(grafica.graficarCaminoAPie(mapa.getNodos(), mapa.getAristas(),recorrido.getAristas(), (Nodo) inicio.getSelectedItem(), (Nodo) fin.getSelectedItem(), (Nodo) inicio.getSelectedItem()));
+
+            if (imagen.exists() && imagen.isFile()) {
+                try {
+
+                    Desktop.getDesktop().open(imagen);
+                } catch (IOException e) {
+                }
+            }
+                
+                
+                
+            
             }
 
             inicio.setEnabled(false);

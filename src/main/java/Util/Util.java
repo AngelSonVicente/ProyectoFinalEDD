@@ -75,6 +75,35 @@ public class Util {
 
         return mayor;
     }
+    public Camino getMejorDesgasteFisico(List<Camino> caminos) {
+
+        Camino menor = caminos.get(0);
+
+        for (Camino camino : caminos) {
+
+            if (camino.getDesgasteFisico()< menor.getDesgasteFisico()) {
+                menor = camino;
+            }
+
+        }
+
+        return menor;
+    }
+
+    public Camino getPeorDesgasteFisico(List<Camino> caminos) {
+
+        Camino mayor = caminos.get(0);
+
+        for (Camino camino : caminos) {
+
+            if (camino.getDesgasteFisico()> mayor.getDesgasteFisico()) {
+                mayor = camino;
+            }
+
+        }
+
+        return mayor;
+    }
 
     public Camino getMejorCaminoGasolinaDistancia(List<Camino> caminos) {
 
@@ -105,13 +134,43 @@ public class Util {
 
         return mayor;
     }
+
+    public Camino getMejorCaminoDistanciaDesgaste(List<Camino> caminos) {
+
+        Camino menor = caminos.get(0);
+
+        for (Camino camino : caminos) {
+
+            if (camino.getPromDistanciaDesgaste()< menor.getPromDistanciaDesgaste()) {
+                menor = camino;
+            }
+
+        }
+
+        return menor;
+    }
+
+    public Camino getPeorCaminoDistanciaDesgaste(List<Camino> caminos) {
+
+        Camino mayor = caminos.get(0);
+
+        for (Camino camino : caminos) {
+
+            if (camino.getPromDistanciaDesgaste()> mayor.getPromDistanciaDesgaste()) {
+                mayor = camino;
+            }
+
+        }
+
+        return mayor;
+    }
     public Camino getMejorCaminoRapidez(List<Camino> caminos) {
 
         Camino menor = caminos.get(0);
 
         for (Camino camino : caminos) {
 
-            if (camino.getRapidezTotal()> menor.getRapidezTotal()) {
+            if (camino.getTiempoTotalVehiculo()< menor.getTiempoTotalVehiculo()) {
                 menor = camino;
             }
 
@@ -126,7 +185,36 @@ public class Util {
 
         for (Camino camino : caminos) {
 
-            if (camino.getRapidezTotal()<mayor.getRapidezTotal()) {
+            if (camino.getTiempoTotalVehiculo()>mayor.getTiempoTotalVehiculo()) {
+                mayor = camino;
+            }
+
+        }
+
+        return mayor;
+    }
+    public Camino getMejorCaminoRapidezPie(List<Camino> caminos) {
+
+        Camino menor = caminos.get(0);
+
+        for (Camino camino : caminos) {
+
+            if (camino.getTiemporTotalPie()< menor.getTiemporTotalPie()) {
+                menor = camino;
+            }
+
+        }
+
+        return menor;
+    }
+
+    public Camino getPeorCaminoRapidezPie(List<Camino> caminos) {
+
+        Camino mayor = caminos.get(0);
+
+        for (Camino camino : caminos) {
+
+            if (camino.getTiemporTotalPie()>mayor.getTiemporTotalPie()) {
                 mayor = camino;
             }
 

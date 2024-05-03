@@ -19,6 +19,8 @@ public class Camino {
     private int gasolinaTotal;
     private float tiempoTotalVehiculo;
     private float rapidezTotal;
+    private int desgasteFisico;
+    private float tiemporTotalPie;
     private List<Arista> aristas; // Lista de aristas que se tomaron en el camino
 
 
@@ -27,6 +29,8 @@ public class Camino {
         this.distanciaTotal = 0;
         this.tiempoTotalVehiculo = 0;
         this.rapidezTotal = 0;
+        this.desgasteFisico=0;
+        this.tiemporTotalPie=0;
         this.aristas = new ArrayList<>();
     }
     
@@ -49,12 +53,21 @@ public class Camino {
 
     }
 
+    public void addDesgasteFisico(int desgaste){
+        desgasteFisico+=desgaste;
+    
+    }
+    
+    
     public void addConsumoGasolina(int gasolina) {
         gasolinaTotal += gasolina;
     }
 
     public void addTiempoVehiculo(float tiempo) {
         tiempoTotalVehiculo += tiempo;
+    }
+    public void addTiempoPie(float tiempo){
+        tiemporTotalPie+=tiempo;
     }
 
     public List<Nodo> getNodos() {
@@ -85,13 +98,27 @@ public class Camino {
         return gasolinaTotal;
     }
 
+    public float getTiemporTotalPie() {
+        return tiemporTotalPie;
+    }
+
+    public void setTiemporTotalPie(float tiemporTotalPie) {
+        this.tiemporTotalPie = tiemporTotalPie;
+    }
+    
+
     public void setGasolinaTotal(int gasolinaTotal) {
         this.gasolinaTotal = gasolinaTotal;
     }
 
     public float getPromDistanciaGasolina() {
 
-        return (gasolinaTotal + distanciaTotal) / 2;
+        return distanciaTotal/gasolinaTotal;
+    }
+    
+    public float getPromDistanciaDesgaste(){
+    
+    return distanciaTotal/desgasteFisico;
     }
 
     public float getRapidezTotal() {
@@ -110,10 +137,20 @@ public class Camino {
         this.aristas = aristas;
     }
 
+    public int getDesgasteFisico() {
+        return desgasteFisico;
+    }
+
+    public void setDesgasteFisico(int desgasteFisico) {
+        this.desgasteFisico = desgasteFisico;
+    }
+
     @Override
     public String toString() {
-        return "\nCamino{" + "nodos=" + nodos + ", distanciaTotal=" + distanciaTotal + ", gasolinaTotal=" + gasolinaTotal + ", tiempoTotalVehiculo=" + tiempoTotalVehiculo + ", rapidezTotal=" + rapidezTotal + ", aristas=" + aristas + '}';
+        return "\nCamino{" + "nodos=" + nodos + ", distanciaTotal=" + distanciaTotal + ", gasolinaTotal=" + gasolinaTotal + ", tiempoTotalVehiculo=" + tiempoTotalVehiculo + ", rapidezTotal=" + rapidezTotal + ", desgasteFisico=" + desgasteFisico + ", tiemporTotalPie=" + tiemporTotalPie +  '}';
     }
+    
+
     
     
     

@@ -96,12 +96,21 @@ public class Arista {
     public float getRapidezVehiculo(float horaActual) {
         if (horaActual >= traficoInicio && horaActual <= traficoFin) {
 
-            return (distancia / (timepoVehiculo * (1 + (probabilidadTrafico / 100))));
+            return (distancia / ((timepoVehiculo) * (1 + (probabilidadTrafico / 100))));
         }
         return (distancia / (timepoVehiculo));
         
 
     }
+
+    public float getRapidezPie() {
+       
+        return (distancia / (tiempoPie));
+        
+
+    }
+    
+    
 
     public void setDistancia(int distancia) {
         this.distancia = distancia;
