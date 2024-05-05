@@ -223,8 +223,8 @@ public class Util {
         return mayor;
     }
 
-    /*
-       public List<Nodo> getNodosVecinos(List<Arista> aristas, Nodo nodo) {
+    
+    public List<Nodo> getTodosNodosVecinos(List<Arista> aristas, Nodo nodo) {
         List<Nodo> nodosVecinos = new ArrayList<>();
         
         for (Arista arista : aristas) {
@@ -237,7 +237,11 @@ public class Util {
         
         return nodosVecinos;
     }
-     */
+    
+    
+    
+    
+    
     public List<Nodo> getNodosVecinos(List<Arista> aristas, Nodo nodo) {
         List<Nodo> nodosVecinos = new ArrayList<>();
 
@@ -251,6 +255,8 @@ public class Util {
         }
         return nodosVecinos;
     }
+    
+    
     
     
        public float sumarMinutosAHora(float horaActual, float minutosASumar) {

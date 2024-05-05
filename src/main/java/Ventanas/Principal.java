@@ -9,15 +9,12 @@ import Grafo.Grafo;
 import Model.Camino;
 import Model.Nodo;
 import Util.Util;
-import java.awt.BorderLayout;
 import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -61,7 +58,6 @@ public class Principal extends javax.swing.JFrame {
         graficaMapa = new javax.swing.JLabel();
         inicio = new javax.swing.JComboBox<>();
         fin = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         funcionalidad = new javax.swing.JComboBox<>();
@@ -93,13 +89,6 @@ public class Principal extends javax.swing.JFrame {
         popupMenu3.setLabel("popupMenu3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jButton1.setText("Buscar Caminos");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("Nodo Incial");
 
@@ -180,71 +169,63 @@ public class Principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tipoMovilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(siguientePaso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(comenzarViaje)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(funcionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(inicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel1))
-                                    .addGap(81, 81, 81))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(comenzarViaje)
-                                        .addComponent(jButton1))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addGap(93, 93, 93)
-                                .addComponent(jButton3))
-                            .addComponent(siguientePaso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(tipoMovilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                .addComponent(graficaMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 888, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                                    .addGap(220, 220, 220))
+                                .addComponent(fin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(graficaMapa, javax.swing.GroupLayout.DEFAULT_SIZE, 914, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(59, 59, 59)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(graficaMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(inicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(comenzarViaje)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
-                        .addGap(60, 60, 60)
-                        .addComponent(tipoMovilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(funcionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53)
-                        .addComponent(siguientePaso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 24, Short.MAX_VALUE))
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(inicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addComponent(tipoMovilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(funcionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(comenzarViaje))
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(siguientePaso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 115, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(graficaMapa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -325,27 +306,6 @@ public class Principal extends javax.swing.JFrame {
 
         return resultado;
     }
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        if (mapa != null) {
-
-            Nodo nodoIncioSeleccionado = (Nodo) inicio.getSelectedItem();
-
-            Nodo nodoFinSeleccionado = (Nodo) fin.getSelectedItem();
-
-            System.out.println("\n\n DE: " + nodoIncioSeleccionado.toString() + " A " + nodoFinSeleccionado.toString());
-            //jalar la hora del reloj
-            List<Camino> caminosEncontrados = mapa.encontrarCaminos(nodoIncioSeleccionado, nodoFinSeleccionado, 14);
-
-            System.out.println("\n\nCAMINOS");
-            System.out.println("---------------------------------------------------------\n");
-
-            System.out.println(caminosEncontrados.toString());
-
-        }
-
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     public void mostrarCamino(Nodo nodoIncioSeleccionado, Nodo nodoFinSeleccionado) {
 
@@ -579,7 +539,7 @@ public class Principal extends javax.swing.JFrame {
                 resultado += " Recorrido: \n" + generarMensajeRecorrido(mejorCamino.getNodos());
 
                 resultado += "\nPromedio rapidez: " + mejorCamino.getRapidezTotal();
-                resultado += "\nTitempo de llegada: " + mejorCamino.getTiemporTotalPie()+ " minutos";
+                resultado += "\nTitempo de llegada: " + mejorCamino.getTiemporTotalPie() + " minutos";
 
                 resultado += "\n\n Peor Ruta: ";
 
@@ -590,7 +550,7 @@ public class Principal extends javax.swing.JFrame {
                 resultado += "\nDistancia Total: " + peorCamino.getDistanciaTotal();
 
                 resultado += "\nPromedio rapidez: " + peorCamino.getRapidezTotal();
-                resultado += "\nTitempo de llegada: " + peorCamino.getTiemporTotalPie()+ " minutos";
+                resultado += "\nTitempo de llegada: " + peorCamino.getTiemporTotalPie() + " minutos";
 
             }
 
@@ -604,36 +564,66 @@ public class Principal extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         Nodo nodoIncioSeleccionado = (Nodo) siguientePaso.getSelectedItem();
+                Nodo nodoFinSeleccionado = (Nodo) fin.getSelectedItem();
+
+                mostrarCamino(nodoIncioSeleccionado, nodoFinSeleccionado);
+
+//            System.out.println(grafica.generarDOTRecorrido(mapa.getNodos(), mapa.getAristas(), recorrido.getNodos(), (Nodo) inicio.getSelectedItem(), (Nodo) fin.getSelectedItem(), (Nodo) siguientePaso.getSelectedItem()));
+                Nodo nodoActual = (Nodo) siguientePaso.getSelectedItem();
 
         if (nodoIncioSeleccionado != fin.getSelectedItem()) {
 
-            Nodo nodoFinSeleccionado = (Nodo) fin.getSelectedItem();
+            if (tipoMovilidad.getSelectedIndex()==1) {
 
-            mostrarCamino(nodoIncioSeleccionado, nodoFinSeleccionado);
 
-            System.out.println(grafica.generarDOTRecorrido(mapa.getNodos(), mapa.getAristas(), recorrido.getNodos(), (Nodo) inicio.getSelectedItem(), (Nodo) fin.getSelectedItem(), (Nodo) siguientePaso.getSelectedItem()));
+                List<Nodo> vecinos = util.getNodosVecinos(mapa.getAristas(), (Nodo) siguientePaso.getSelectedItem());
 
-            Nodo nodoActual = (Nodo) siguientePaso.getSelectedItem();
+                DefaultComboBoxModel<Nodo> comboBoxModel = new DefaultComboBoxModel<>();
 
-            List<Nodo> vecinos = util.getNodosVecinos(mapa.getAristas(), (Nodo) siguientePaso.getSelectedItem());
+                comboBoxModel.addAll(vecinos);
 
-            DefaultComboBoxModel<Nodo> comboBoxModel = new DefaultComboBoxModel<>();
+                siguientePaso.setModel(comboBoxModel);
 
-            comboBoxModel.addAll(vecinos);
+                File imagen = new File(grafica.graficarCamino(mapa.getNodos(), mapa.getAristas(), recorrido.getNodos(), (Nodo) inicio.getSelectedItem(), (Nodo) fin.getSelectedItem(), nodoActual));
 
-            siguientePaso.setModel(comboBoxModel);
+                if (imagen.exists() && imagen.isFile()) {
+                    try {
 
-            File imagen = new File(grafica.graficarCamino(mapa.getNodos(), mapa.getAristas(), recorrido.getNodos(), (Nodo) inicio.getSelectedItem(), (Nodo) fin.getSelectedItem(), nodoActual));
+                        Desktop.getDesktop().open(imagen);
+                    } catch (IOException e) {
 
-            if (imagen.exists() && imagen.isFile()) {
-                try {
-
-                    Desktop.getDesktop().open(imagen);
-                } catch (IOException e) {
-
-                    e.printStackTrace();
+                        e.printStackTrace();
+                    }
                 }
+
             }
+            
+            if(tipoMovilidad.getSelectedIndex()==2){
+                
+
+                
+                List<Nodo> vecinos = util.getTodosNodosVecinos(mapa.getAristas(), (Nodo) siguientePaso.getSelectedItem());
+
+                DefaultComboBoxModel<Nodo> comboBoxModel = new DefaultComboBoxModel<>();
+
+                comboBoxModel.addAll(vecinos);
+
+                siguientePaso.setModel(comboBoxModel);
+
+                File imagen = new File(grafica.graficarCaminoAPie(mapa.getNodos(), mapa.getAristas(), recorrido.getAristas(), (Nodo) inicio.getSelectedItem(), (Nodo) fin.getSelectedItem(), nodoActual));
+
+                if (imagen.exists() && imagen.isFile()) {
+                    try {
+
+                        Desktop.getDesktop().open(imagen);
+                    } catch (IOException e) {
+
+                        e.printStackTrace();
+                    }
+                }
+                
+            }
+            
 
         } else {
 
@@ -660,51 +650,48 @@ public class Principal extends javax.swing.JFrame {
 
         } else {
 
-            if(tipoMovilidad.getSelectedIndex()==1){
-            List<Nodo> vecinos = util.getNodosVecinos(mapa.getAristas(), (Nodo) inicio.getSelectedItem());
-
-            DefaultComboBoxModel<Nodo> comboBoxModel = new DefaultComboBoxModel<>();
-
-            comboBoxModel.addAll(vecinos);
-
-            siguientePaso.setModel(comboBoxModel);
-
-            // Cargar la imagen desde el archivo
-            File imagen = new File(grafica.graficarCamino(mapa.getNodos(), mapa.getAristas(), recorrido.getNodos(), (Nodo) inicio.getSelectedItem(), (Nodo) fin.getSelectedItem(), (Nodo) inicio.getSelectedItem()));
-
-            if (imagen.exists() && imagen.isFile()) {
-                try {
-
-                    Desktop.getDesktop().open(imagen);
-                } catch (IOException e) {
-                }
-            }
-            }
-            
-            if(tipoMovilidad.getSelectedIndex()==2){
-                
+            if (tipoMovilidad.getSelectedIndex() == 1) {
                 List<Nodo> vecinos = util.getNodosVecinos(mapa.getAristas(), (Nodo) inicio.getSelectedItem());
 
-            DefaultComboBoxModel<Nodo> comboBoxModel = new DefaultComboBoxModel<>();
+                DefaultComboBoxModel<Nodo> comboBoxModel = new DefaultComboBoxModel<>();
 
-            comboBoxModel.addAll(vecinos);
+                comboBoxModel.addAll(vecinos);
 
-            siguientePaso.setModel(comboBoxModel);
+                siguientePaso.setModel(comboBoxModel);
 
-            // Cargar la imagen desde el archivo
-            File imagen = new File(grafica.graficarCaminoAPie(mapa.getNodos(), mapa.getAristas(),recorrido.getAristas(), (Nodo) inicio.getSelectedItem(), (Nodo) fin.getSelectedItem(), (Nodo) inicio.getSelectedItem()));
+                // Cargar la imagen desde el archivo
+                File imagen = new File(grafica.graficarCamino(mapa.getNodos(), mapa.getAristas(), recorrido.getNodos(), (Nodo) inicio.getSelectedItem(), (Nodo) fin.getSelectedItem(), (Nodo) inicio.getSelectedItem()));
 
-            if (imagen.exists() && imagen.isFile()) {
-                try {
+                if (imagen.exists() && imagen.isFile()) {
+                    try {
 
-                    Desktop.getDesktop().open(imagen);
-                } catch (IOException e) {
+                        Desktop.getDesktop().open(imagen);
+                    } catch (IOException e) {
+                    }
                 }
             }
-                
-                
-                
-            
+
+            if (tipoMovilidad.getSelectedIndex() == 2) {
+
+                List<Nodo> vecinos = util.getTodosNodosVecinos(mapa.getAristas(), (Nodo) inicio.getSelectedItem());
+
+                DefaultComboBoxModel<Nodo> comboBoxModel = new DefaultComboBoxModel<>();
+
+                comboBoxModel.addAll(vecinos);
+
+                siguientePaso.setModel(comboBoxModel);
+
+                // Cargar la imagen desde el archivo
+                File imagen = new File(grafica.graficarCaminoAPie(mapa.getNodos(), mapa.getAristas(), recorrido.getAristas(), (Nodo) inicio.getSelectedItem(), (Nodo) fin.getSelectedItem(), (Nodo) inicio.getSelectedItem()));
+
+                if (imagen.exists() && imagen.isFile()) {
+                    try {
+
+                        Desktop.getDesktop().open(imagen);
+                    } catch (IOException e) {
+                    }
+                }
+
             }
 
             inicio.setEnabled(false);
@@ -822,40 +809,6 @@ public class Principal extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Principal().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Importar;
@@ -864,7 +817,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> funcionalidad;
     private javax.swing.JLabel graficaMapa;
     private javax.swing.JComboBox<Nodo> inicio;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
