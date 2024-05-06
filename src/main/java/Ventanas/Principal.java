@@ -250,17 +250,17 @@ public class Principal extends javax.swing.JFrame {
                                                 .addComponent(funcionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(inicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(jLabel1))
-                                            .addGap(220, 220, 220))
+                                            .addGap(139, 139, 139))
                                         .addComponent(fin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(17, 17, 17)
                                 .addComponent(jButton1)))
-                        .addGap(362, 362, 362))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(85, 85, 85)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(graficaMapa, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
+                    .addComponent(graficaMapa, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton4)
                         .addGap(39, 39, 39)
@@ -367,6 +367,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void funcionalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_funcionalidadActionPerformed
 
+        
         Nodo nodoIncioSeleccionado = (Nodo) inicio.getSelectedItem();
 
         Nodo nodoFinSeleccionado = (Nodo) fin.getSelectedItem();
@@ -399,6 +400,7 @@ public class Principal extends javax.swing.JFrame {
         String resultado = "";
         //   System.out.println("\n\n DE: " + nodoIncioSeleccionado.toString() + " A " + nodoFinSeleccionado.toString());
 
+      
         if (tipoMovilidad.getSelectedIndex() == 1) {
             caminosEncontrados = mapa.encontrarCaminos(nodoIncioSeleccionado, nodoFinSeleccionado, hora);
             //JALAR LA HORA DEL RELOJ
@@ -670,17 +672,7 @@ public class Principal extends javax.swing.JFrame {
 
                 siguientePaso.setModel(comboBoxModel);
 
-                File imagen = new File(grafica.graficarCamino(mapa.getNodos(), mapa.getAristas(), recorrido.getNodos(), (Nodo) inicio.getSelectedItem(), (Nodo) fin.getSelectedItem(), nodoActual));
-
-                if (imagen.exists() && imagen.isFile()) {
-                    try {
-
-                        Desktop.getDesktop().open(imagen);
-                    } catch (IOException e) {
-
-                        e.printStackTrace();
-                    }
-                }
+         
 
             }
 
@@ -696,6 +688,13 @@ public class Principal extends javax.swing.JFrame {
 
                 File imagen = new File(grafica.graficarCaminoAPie(mapa.getNodos(), mapa.getAristas(), recorrido.getAristas(), (Nodo) inicio.getSelectedItem(), (Nodo) fin.getSelectedItem(), nodoActual));
 
+           
+                
+
+            }
+            
+                   File imagen = new File(grafica.graficarCaminoAPie(mapa.getNodos(), mapa.getAristas(), recorrido.getAristas(), (Nodo) inicio.getSelectedItem(), (Nodo) fin.getSelectedItem(), nodoActual));
+
                 if (imagen.exists() && imagen.isFile()) {
                     try {
 
@@ -705,8 +704,6 @@ public class Principal extends javax.swing.JFrame {
                         e.printStackTrace();
                     }
                 }
-
-            }
 
         } else {
 
@@ -748,7 +745,8 @@ public class Principal extends javax.swing.JFrame {
                 siguientePaso.setModel(comboBoxModel);
 
                 // Cargar la imagen desde el archivo
-                File imagen = new File(grafica.graficarCamino(mapa.getNodos(), mapa.getAristas(), recorrido.getNodos(), (Nodo) inicio.getSelectedItem(), (Nodo) fin.getSelectedItem(), (Nodo) inicio.getSelectedItem()));
+                
+                File imagen = new File(grafica.graficarCaminoAPie(mapa.getNodos(), mapa.getAristas(), recorrido.getAristas(), (Nodo) inicio.getSelectedItem(), (Nodo) fin.getSelectedItem(), (Nodo) inicio.getSelectedItem()));
 
                 if (imagen.exists() && imagen.isFile()) {
                     try {
@@ -769,8 +767,11 @@ public class Principal extends javax.swing.JFrame {
 
                 siguientePaso.setModel(comboBoxModel);
 
-                // Cargar la imagen desde el archivo
-                File imagen = new File(grafica.graficarCaminoAPie(mapa.getNodos(), mapa.getAristas(), recorrido.getAristas(), (Nodo) inicio.getSelectedItem(), (Nodo) fin.getSelectedItem(), (Nodo) inicio.getSelectedItem()));
+          
+                
+
+            }
+                  File imagen = new File(grafica.graficarCaminoAPie(mapa.getNodos(), mapa.getAristas(), recorrido.getAristas(), (Nodo) inicio.getSelectedItem(), (Nodo) fin.getSelectedItem(), (Nodo) inicio.getSelectedItem()));
 
                 if (imagen.exists() && imagen.isFile()) {
                     try {
@@ -779,8 +780,7 @@ public class Principal extends javax.swing.JFrame {
                     } catch (IOException e) {
                     }
                 }
-
-            }
+            
 
             inicio.setEnabled(false);
             fin.setEnabled(false);

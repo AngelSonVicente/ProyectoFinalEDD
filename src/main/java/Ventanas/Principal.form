@@ -154,7 +154,7 @@
                                               <Component id="inicio" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" pref="220" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="139" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="fin" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -165,7 +165,7 @@
                               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="362" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jScrollPane2" min="-2" pref="174" max="-2" attributes="0"/>
@@ -173,7 +173,7 @@
                   </Group>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="graficaMapa" pref="558" max="32767" attributes="0"/>
+                  <Component id="graficaMapa" pref="638" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="jButton4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>

@@ -147,7 +147,7 @@ public class Camino {
 
     @Override
     public String toString() {
-        return "\nCamino{" + "nodos=" + nodos + ", distanciaTotal=" + distanciaTotal + ", gasolinaTotal=" + gasolinaTotal + ", tiempoTotalVehiculo=" + tiempoTotalVehiculo + ", rapidezTotal=" + rapidezTotal + ", desgasteFisico=" + desgasteFisico + ", tiemporTotalPie=" + tiemporTotalPie +  '}';
+        return "\nCamino{" + "nodos=" + nodos + ", distanciaTotal=" + distanciaTotal + ", gasolinaTotal=" + gasolinaTotal + ", tiempoTotalVehiculo=" + tiempoTotalVehiculo + ", rapidezTotal=" + rapidezTotal + ", desgasteFisico=" + desgasteFisico + ", tiemporTotalPie=" + tiemporTotalPie + "Aristas: " + aristas + '}';
     }
     
 
