@@ -188,8 +188,11 @@ public class GenerarGrafica {
             System.out.println("Archivo DOT generado con éxito: " + nombreArchivo);
 
             MutableGraph g = new Parser().read(dotFile);
-            Graphviz.fromGraph(g).height(850).width(1300).render(Format.PNG).toFile(new File(Path + "/" + nombreArchivo));
-            System.out.println("Imagen generada con éxito: automata.png");
+            
+            
+            //para los grafos height(850).width(1300)
+            Graphviz.fromGraph(g).height(-1).width(-1).render(Format.PNG).toFile(new File(Path + "/" + nombreArchivo));
+            System.out.println("Imagen generada con éxito");
 
         } catch (IOException ex) {
             Logger.getLogger(GenerarGrafica.class.getName()).log(Level.SEVERE, null, ex);
