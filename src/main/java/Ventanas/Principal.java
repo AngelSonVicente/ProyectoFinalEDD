@@ -4,9 +4,11 @@
  */
 package Ventanas;
 
+import ArbolB.ArbolB;
 import Grafo.GenerarGrafica;
 import Grafo.Grafo;
 import Model.Camino;
+import Model.Dato;
 import Model.Nodo;
 import Util.Util;
 import java.awt.Desktop;
@@ -14,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -68,6 +71,7 @@ public class Principal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         comenzarViaje = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         Importar = new javax.swing.JMenuItem();
@@ -138,6 +142,13 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Arbol");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         jMenu3.setText("File");
 
         Importar.setText("Importar Rutas ");
@@ -192,7 +203,10 @@ public class Principal extends javax.swing.JFrame {
                                         .addComponent(jLabel1))
                                     .addGap(220, 220, 220))
                                 .addComponent(fin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jButton1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(graficaMapa, javax.swing.GroupLayout.DEFAULT_SIZE, 914, Short.MAX_VALUE)
                 .addContainerGap())
@@ -222,7 +236,9 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(jButton2))
                 .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 115, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(0, 61, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(graficaMapa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -253,6 +269,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_ImportarActionPerformed
 
     private Util util = new Util();
+    private boolean mostrarArbol = false;
 
     private void tipoMovilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoMovilidadActionPerformed
 
@@ -290,6 +307,8 @@ public class Principal extends javax.swing.JFrame {
 
         mostrarCamino(nodoIncioSeleccionado, nodoFinSeleccionado);
 
+        mostrarArbol = true;
+
 
     }//GEN-LAST:event_funcionalidadActionPerformed
 
@@ -307,13 +326,15 @@ public class Principal extends javax.swing.JFrame {
         return resultado;
     }
 
+    List<Camino> caminosEncontrados = new ArrayList<>();
+
     public void mostrarCamino(Nodo nodoIncioSeleccionado, Nodo nodoFinSeleccionado) {
 
         String resultado = "";
         //   System.out.println("\n\n DE: " + nodoIncioSeleccionado.toString() + " A " + nodoFinSeleccionado.toString());
 
         if (tipoMovilidad.getSelectedIndex() == 1) {
-            List<Camino> caminosEncontrados = mapa.encontrarCaminos(nodoIncioSeleccionado, nodoFinSeleccionado, 14);
+            caminosEncontrados = mapa.encontrarCaminos(nodoIncioSeleccionado, nodoFinSeleccionado, 14);
             //JALAR LA HORA DEL RELOJ
             System.out.println("\n\nCAMINOS VEHICULO");
             System.out.println("---------------------------------------------------------\n");
@@ -460,7 +481,7 @@ public class Principal extends javax.swing.JFrame {
 
         if (tipoMovilidad.getSelectedIndex() == 2) {
 
-            List<Camino> caminosEncontrados = mapa.encontrarCaminosAPie(nodoIncioSeleccionado, nodoFinSeleccionado);
+            caminosEncontrados = mapa.encontrarCaminosAPie(nodoIncioSeleccionado, nodoFinSeleccionado);
 
             System.out.println("\n\nCAMINOS A PATA");
             System.out.println("---------------------------------------------------------\n");
@@ -564,17 +585,16 @@ public class Principal extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         Nodo nodoIncioSeleccionado = (Nodo) siguientePaso.getSelectedItem();
-                Nodo nodoFinSeleccionado = (Nodo) fin.getSelectedItem();
+        Nodo nodoFinSeleccionado = (Nodo) fin.getSelectedItem();
 
-                mostrarCamino(nodoIncioSeleccionado, nodoFinSeleccionado);
+        mostrarCamino(nodoIncioSeleccionado, nodoFinSeleccionado);
 
 //            System.out.println(grafica.generarDOTRecorrido(mapa.getNodos(), mapa.getAristas(), recorrido.getNodos(), (Nodo) inicio.getSelectedItem(), (Nodo) fin.getSelectedItem(), (Nodo) siguientePaso.getSelectedItem()));
-                Nodo nodoActual = (Nodo) siguientePaso.getSelectedItem();
+        Nodo nodoActual = (Nodo) siguientePaso.getSelectedItem();
 
         if (nodoIncioSeleccionado != fin.getSelectedItem()) {
 
-            if (tipoMovilidad.getSelectedIndex()==1) {
-
+            if (tipoMovilidad.getSelectedIndex() == 1) {
 
                 List<Nodo> vecinos = util.getNodosVecinos(mapa.getAristas(), (Nodo) siguientePaso.getSelectedItem());
 
@@ -597,11 +617,9 @@ public class Principal extends javax.swing.JFrame {
                 }
 
             }
-            
-            if(tipoMovilidad.getSelectedIndex()==2){
-                
 
-                
+            if (tipoMovilidad.getSelectedIndex() == 2) {
+
                 List<Nodo> vecinos = util.getTodosNodosVecinos(mapa.getAristas(), (Nodo) siguientePaso.getSelectedItem());
 
                 DefaultComboBoxModel<Nodo> comboBoxModel = new DefaultComboBoxModel<>();
@@ -621,9 +639,8 @@ public class Principal extends javax.swing.JFrame {
                         e.printStackTrace();
                     }
                 }
-                
+
             }
-            
 
         } else {
 
@@ -746,6 +763,44 @@ public class Principal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        if (mostrarArbol){
+            
+            
+            
+            ArbolB arbol = new ArbolB(3);
+            
+            
+            int c=0;
+            for(Camino camino : caminosEncontrados){
+                
+               Dato dato = new Dato(camino.getDistanciaTotal(), camino.getNodos().toString());
+                
+                arbol.insertar(dato);
+                
+                c++;
+                
+            
+            }
+            
+            
+        System.out.println("\n\n\n"+arbol.generarDOT());
+        
+        
+        
+            System.out.println("\n\n Cantidad datos"+ c);
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     Grafo mapa = new Grafo();
     GenerarGrafica grafica = new GenerarGrafica();
 
@@ -817,6 +872,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> funcionalidad;
     private javax.swing.JLabel graficaMapa;
     private javax.swing.JComboBox<Nodo> inicio;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;

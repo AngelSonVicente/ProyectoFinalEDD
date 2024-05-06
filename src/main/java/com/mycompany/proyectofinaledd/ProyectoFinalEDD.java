@@ -3,8 +3,9 @@
  */
 package com.mycompany.proyectofinaledd;
 
-import Grafo.BTree;
+import ArbolB.ArbolB;
 import Grafo.Grafo;
+import Model.Dato;
 import Model.Nodo;
 import Ventanas.Principal;
 
@@ -15,6 +16,10 @@ import Ventanas.Principal;
 public class ProyectoFinalEDD {
 
     public static void main(String[] args) {
+        
+        
+        
+        int t = 3;
         /*
 
 
@@ -44,22 +49,47 @@ public class ProyectoFinalEDD {
         System.out.println(mapa.generarDOT());
            
 
-        */
-        
+         */
 
+        
+       
+        ArbolB arbolB = new ArbolB(t);
+
+        
+        Dato dato1 = new Dato(20, "dato20");
+        Dato dato2 = new Dato(10, "dato110");
+        Dato dato3 = new Dato(50, "dato50");
+        Dato dato4 = new Dato(30, "dato30");
+        Dato dato5 = new Dato(30, "dato40");
+
+        Dato dato6 = new Dato(60, "dato60");
+
+        Dato dato7 = new Dato(80, "dato80");
+        Dato dato8 = new Dato(70, "dato70");
+
+        arbolB.insertar(dato1);
+        arbolB.insertar(dato2);
+        arbolB.insertar(dato3);
+        arbolB.insertar(dato4);
+        arbolB.insertar(dato5);
+        arbolB.insertar(dato6);
+        arbolB.insertar(dato7);
+        arbolB.insertar(dato8);
+
+        System.out.println("");
+
+        System.out.println("\n\n\n" + arbolB.generarDOT());
+
+        arbolB.getDatoMenor();
+        arbolB.getDatoMayor();
+    
+        
+        
         
         Principal principal = new Principal();
-        
+
         principal.setVisible(true);
 
-        
-        
-        
-        
-      
-        
-        
-        
     }
 
 }

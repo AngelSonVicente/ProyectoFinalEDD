@@ -1,9 +1,12 @@
 /home/angel/EDD/ProyectoFinalEDD/src/main/java/Util/Util.java
 /home/angel/EDD/ProyectoFinalEDD/src/main/java/Model/Nodo.java
+/home/angel/EDD/ProyectoFinalEDD/src/main/java/Model/Dato.java
 /home/angel/EDD/ProyectoFinalEDD/src/main/java/Model/Arista.java
 /home/angel/EDD/ProyectoFinalEDD/src/main/java/Model/Camino.java
+/home/angel/EDD/ProyectoFinalEDD/src/main/java/ArbolB/NodoArbol.java
 /home/angel/EDD/ProyectoFinalEDD/src/main/java/Grafo/Grafo.java
 /home/angel/EDD/ProyectoFinalEDD/src/main/java/Grafo/BuscarCaminos.java
 /home/angel/EDD/ProyectoFinalEDD/src/main/java/Ventanas/Principal.java
 /home/angel/EDD/ProyectoFinalEDD/src/main/java/Grafo/GenerarGrafica.java
+/home/angel/EDD/ProyectoFinalEDD/src/main/java/ArbolB/ArbolB.java
 /home/angel/EDD/ProyectoFinalEDD/src/main/java/com/mycompany/proyectofinaledd/ProyectoFinalEDD.java

@@ -3,6 +3,7 @@ Model/Camino.class
 Ventanas/Principal$3.class
 com/mycompany/proyectofinaledd/ProyectoFinalEDD.class
 Ventanas/Principal$2.class
+ArbolB/NodoArbol.class
 Ventanas/Principal$6.class
 Util/Util.class
 Ventanas/Principal$7.class
@@ -13,5 +14,8 @@ Ventanas/Principal$5.class
 Grafo/Grafo.class
 Model/Nodo.class
 Ventanas/Principal$4.class
+Ventanas/Principal$9.class
 Grafo/BuscarCaminos.class
+Model/Dato.class
+ArbolB/ArbolB.class
 Ventanas/Principal.class
